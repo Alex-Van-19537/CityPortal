@@ -6,4 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(include)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(main
+main.cpp
+src/entry.cpp
+src/user.cpp
+)
