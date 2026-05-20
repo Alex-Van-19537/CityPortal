@@ -23,6 +23,8 @@ public:
     bool save() const;
     bool empty() const;
     void list() const;
+    template<typename Predicate>
+    const T* find(Predicate) const;
     bool add(const T &);
     bool remove(int);
     int getNextId() const;
@@ -88,6 +90,14 @@ void Database<T>::list() const
     {
         cout << d;
     }
+}
+template<typename T>
+template<typename Predicate>
+const T* Database<T>::find(Predicate pred) const{
+    for(const auto& item:data){
+        if(pred(item)) return &item;
+    }
+    return nullptr;
 }
 
 template <typename T>
