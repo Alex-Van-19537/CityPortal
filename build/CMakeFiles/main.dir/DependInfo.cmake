@@ -8,8 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/alex_vankov/Documents/Repositories/CityPortal/CityPortal/src/main.cpp" "CMakeFiles/CityPortal.dir/src/main.cpp.o" "gcc" "CMakeFiles/CityPortal.dir/src/main.cpp.o.d"
-  "" "CityPortal" "gcc" "CMakeFiles/CityPortal.dir/link.d"
+  "/home/alex_vankov/Documents/Repositories/CityPortal/main.cpp" "CMakeFiles/main.dir/main.cpp.o" "gcc" "CMakeFiles/main.dir/main.cpp.o.d"
+  "/home/alex_vankov/Documents/Repositories/CityPortal/src/entry.cpp" "CMakeFiles/main.dir/src/entry.cpp.o" "gcc" "CMakeFiles/main.dir/src/entry.cpp.o.d"
+  "/home/alex_vankov/Documents/Repositories/CityPortal/src/user.cpp" "CMakeFiles/main.dir/src/user.cpp.o" "gcc" "CMakeFiles/main.dir/src/user.cpp.o.d"
+  "" "main" "gcc" "CMakeFiles/main.dir/link.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/alex_vankov/Documents/Repositories/CityPortal/CityPortal
+CMAKE_SOURCE_DIR = /home/alex_vankov/Documents/Repositories/CityPortal
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/alex_vankov/Documents/Repositories/CityPortal/CityPortal/build
+CMAKE_BINARY_DIR = /home/alex_vankov/Documents/Repositories/CityPortal/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex_vankov/Documents/Repositories/CityPortal/CityPortal/build/CMakeFiles /home/alex_vankov/Documents/Repositories/CityPortal/CityPortal/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex_vankov/Documents/Repositories/CityPortal/build/CMakeFiles /home/alex_vankov/Documents/Repositories/CityPortal/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex_vankov/Documents/Repositories/CityPortal/CityPortal/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alex_vankov/Documents/Repositories/CityPortal/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -117,41 +117,89 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named CityPortal
+# Target rules for targets named main
 
 # Build rule for target.
-CityPortal: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CityPortal
-.PHONY : CityPortal
+main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
+.PHONY : main
 
 # fast build rule for target.
-CityPortal/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CityPortal.dir/build.make CMakeFiles/CityPortal.dir/build
-.PHONY : CityPortal/fast
+main/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+.PHONY : main/fast
 
-src/main.o: src/main.cpp.o
-.PHONY : src/main.o
+main.o: main.cpp.o
+.PHONY : main.o
 
 # target to build an object file
-src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CityPortal.dir/build.make CMakeFiles/CityPortal.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
+main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-src/main.i: src/main.cpp.i
-.PHONY : src/main.i
+main.i: main.cpp.i
+.PHONY : main.i
 
 # target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CityPortal.dir/build.make CMakeFiles/CityPortal.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
+main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-src/main.s: src/main.cpp.s
-.PHONY : src/main.s
+main.s: main.cpp.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CityPortal.dir/build.make CMakeFiles/CityPortal.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
+.PHONY : main.cpp.s
+
+src/entry.o: src/entry.cpp.o
+.PHONY : src/entry.o
+
+# target to build an object file
+src/entry.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/entry.cpp.o
+.PHONY : src/entry.cpp.o
+
+src/entry.i: src/entry.cpp.i
+.PHONY : src/entry.i
+
+# target to preprocess a source file
+src/entry.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/entry.cpp.i
+.PHONY : src/entry.cpp.i
+
+src/entry.s: src/entry.cpp.s
+.PHONY : src/entry.s
+
+# target to generate assembly for a file
+src/entry.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/entry.cpp.s
+.PHONY : src/entry.cpp.s
+
+src/user.o: src/user.cpp.o
+.PHONY : src/user.o
+
+# target to build an object file
+src/user.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/user.cpp.o
+.PHONY : src/user.cpp.o
+
+src/user.i: src/user.cpp.i
+.PHONY : src/user.i
+
+# target to preprocess a source file
+src/user.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/user.cpp.i
+.PHONY : src/user.cpp.i
+
+src/user.s: src/user.cpp.s
+.PHONY : src/user.s
+
+# target to generate assembly for a file
+src/user.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/user.cpp.s
+.PHONY : src/user.cpp.s
 
 # Help Target
 help:
@@ -161,10 +209,16 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... CityPortal"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
+	@echo "... main"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
+	@echo "... src/entry.o"
+	@echo "... src/entry.i"
+	@echo "... src/entry.s"
+	@echo "... src/user.o"
+	@echo "... src/user.i"
+	@echo "... src/user.s"
 .PHONY : help
 
 

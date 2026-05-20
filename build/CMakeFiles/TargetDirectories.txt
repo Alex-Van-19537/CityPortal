@@ -1,3 +1,3 @@
-/home/alex_vankov/Documents/Repositories/CityPortal/CityPortal/build/CMakeFiles/CityPortal.dir
-/home/alex_vankov/Documents/Repositories/CityPortal/CityPortal/build/CMakeFiles/edit_cache.dir
-/home/alex_vankov/Documents/Repositories/CityPortal/CityPortal/build/CMakeFiles/rebuild_cache.dir
+/home/alex_vankov/Documents/Repositories/CityPortal/build/CMakeFiles/main.dir
+/home/alex_vankov/Documents/Repositories/CityPortal/build/CMakeFiles/edit_cache.dir
+/home/alex_vankov/Documents/Repositories/CityPortal/build/CMakeFiles/rebuild_cache.dir
