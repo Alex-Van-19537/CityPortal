@@ -8,6 +8,7 @@
 #include <vector>
 using std::cout;
 using std::cin;
+using std::cerr;
 using std::to_string;
 using std::ifstream;
 using std::istream;
@@ -21,6 +22,7 @@ using std::stringstream;
 using std::vector;
 using std::ws;
 
+string vectorToStr(const vector<int> &varr);
 class Entry
 {
 public:

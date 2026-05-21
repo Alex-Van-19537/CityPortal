@@ -1,14 +1,18 @@
 #include "user.hpp"
 #include "database.hpp"
+#include "vehicle.hpp"
 
 const string LOGIN_MENU = "\n======== CSV Database ========\n1. Log In\n0. Exit\n";
-const string ADMIN_MENU = "\n--- Admin Options ---\n1. List users\n2. Add entry\n3. Delete entry\n0. Log Out\n";
+const string ADMIN_MENU = "\n--- Admin Options ---\n1. List users\n2. Add user\n3. Delete user\n4. List Vehicles\n5. Add Vehicle\n6. Delete vehicle\n0. Log Out\n";
 const string CITIZEN_MENU = "\n--- Citizen Options ---\n1. View My Profile\n0. Log Out\n";
+
+const string usersFile = "../data/users.csv";
+const string vehiclesFile = "../data/vehicles.csv";
 
 int main()
 {
-    const string usersFile = "../data/users.csv";
     Database<User> usersDB(usersFile);
+    Database<Vehicle> vehiclesDB(vehiclesFile);
 
     const User *currentUser = nullptr;
 
@@ -44,6 +48,8 @@ int main()
                     cerr << "Wrong username or password!\n";
                 break;
             }
+            case 11:
+                currentUser = usersDB.find([](const auto& u){return u.getId()==1;});
             case 0:
                 cout << "Goodbye!\n";
                 break;
@@ -71,8 +77,9 @@ int main()
                      << left << setw(7) << "[Age]"
                      << left << setw(10) << "[Income]"
                      << left << setw(10) << "[Role]" << '\n'
-                     << string(100, '_') << "\n\n";
-                usersDB.list();
+                     << string(100, '_') << "\n";
+                for(const auto& u:usersDB.getData())
+                    u.printUserCard(vehiclesDB);
                 break;
             case 2:
             {
@@ -91,20 +98,63 @@ int main()
                 cin.ignore();
 
                 usersDB.add(User(usersDB.getNextId(), firstname, lastname, username, password, age));
-                cout << "[Success]: Entry added with ID: " << usersDB.getNextId() - 1 << "!\n";
+                cout << "[Success]: User added with ID: " << usersDB.getNextId() - 1 << "!\n";
                 break;
             }
 
             case 3:
             {
                 int deleteId;
-                cout << "Entry to be deleted [ID]: ";
+                cout << "User to be deleted [ID]: ";
                 cin >> deleteId;
                 cin.ignore();
                 if (usersDB.remove(deleteId))
-                    cout << "[Success]: Entry with ID " << deleteId << " was deleted!\n";
+                    cout << "[Success]: User with ID " << deleteId << " was deleted!\n";
                 else
-                    cout << "[Error]: Entry with ID " << deleteId << " not found.\n";
+                    cout << "[Error]: User with ID " << deleteId << " not found.\n";
+                break;
+            }
+
+            case 4:
+                cout << "\n--- Entries ---\n";
+                cout << left << setw(6) << "[ID]"
+                     << left << setw(15) << "[Model]"
+                     << left << setw(15) << "[Make]"
+                     << left << setw(10) << "[Fuel]"
+                     << left << setw(7) << "[Price]" << '\n'
+                     << string(53, '_') << "\n";
+                vehiclesDB.list();
+                break;
+
+            case 5:
+            {
+                string make, model, fuelStr;
+                int price;
+                cout << "Make: ";
+                getline(cin >> ws, make);
+                cout << "Model: ";
+                getline(cin >> ws, model);
+                cout << "Fuel [ Petrol, Diesel, LPG ]: ";
+                getline(cin >> ws, fuelStr);
+                cout << "Price: ";
+                cin >> price;
+                cin.ignore();
+
+                vehiclesDB.add(Vehicle(vehiclesDB.getNextId(), make, model, strToFuel(fuelStr), price));
+                cout << "[Success]: Vehicle added with ID: " << vehiclesDB.getNextId() - 1 << "!\n";
+                break;
+            }
+
+            case 6:
+            {
+                int deleteId;
+                cout << "Vehicle to be deleted [ID]: ";
+                cin >> deleteId;
+                cin.ignore();
+                if (vehiclesDB.remove(deleteId))
+                    cout << "[Success]: Vehicle with ID " << deleteId << " was deleted!\n";
+                else
+                    cout << "[Error]: Vehicle with ID " << deleteId << " not found.\n";
                 break;
             }
 

@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/alex_vankov/Documents/Repositories/CityPortal/main.cpp" "CMakeFiles/main.dir/main.cpp.o" "gcc" "CMakeFiles/main.dir/main.cpp.o.d"
   "/home/alex_vankov/Documents/Repositories/CityPortal/src/entry.cpp" "CMakeFiles/main.dir/src/entry.cpp.o" "gcc" "CMakeFiles/main.dir/src/entry.cpp.o.d"
   "/home/alex_vankov/Documents/Repositories/CityPortal/src/user.cpp" "CMakeFiles/main.dir/src/user.cpp.o" "gcc" "CMakeFiles/main.dir/src/user.cpp.o.d"
+  "/home/alex_vankov/Documents/Repositories/CityPortal/src/vehicle.cpp" "CMakeFiles/main.dir/src/vehicle.cpp.o" "gcc" "CMakeFiles/main.dir/src/vehicle.cpp.o.d"
   "" "main" "gcc" "CMakeFiles/main.dir/link.d"
   )
 

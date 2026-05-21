@@ -10,4 +10,5 @@ add_executable(main
 main.cpp
 src/entry.cpp
 src/user.cpp
+src/vehicle.cpp
 )

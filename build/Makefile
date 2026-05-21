@@ -201,6 +201,30 @@ src/user.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/user.cpp.s
 .PHONY : src/user.cpp.s
 
+src/vehicle.o: src/vehicle.cpp.o
+.PHONY : src/vehicle.o
+
+# target to build an object file
+src/vehicle.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/vehicle.cpp.o
+.PHONY : src/vehicle.cpp.o
+
+src/vehicle.i: src/vehicle.cpp.i
+.PHONY : src/vehicle.i
+
+# target to preprocess a source file
+src/vehicle.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/vehicle.cpp.i
+.PHONY : src/vehicle.cpp.i
+
+src/vehicle.s: src/vehicle.cpp.s
+.PHONY : src/vehicle.s
+
+# target to generate assembly for a file
+src/vehicle.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/vehicle.cpp.s
+.PHONY : src/vehicle.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -219,6 +243,9 @@ help:
 	@echo "... src/user.o"
 	@echo "... src/user.i"
 	@echo "... src/user.s"
+	@echo "... src/vehicle.o"
+	@echo "... src/vehicle.i"
+	@echo "... src/vehicle.s"
 .PHONY : help
 
 

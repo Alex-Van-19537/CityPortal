@@ -1,7 +1,7 @@
-CMakeFiles/main.dir/main.cpp.o: \
- /home/alex_vankov/Documents/Repositories/CityPortal/main.cpp \
+CMakeFiles/main.dir/src/vehicle.cpp.o: \
+ /home/alex_vankov/Documents/Repositories/CityPortal/src/vehicle.cpp \
  /usr/include/stdc-predef.h \
- /home/alex_vankov/Documents/Repositories/CityPortal/include/user.hpp \
+ /home/alex_vankov/Documents/Repositories/CityPortal/include/vehicle.hpp \
  /home/alex_vankov/Documents/Repositories/CityPortal/include/entry.hpp \
  /usr/include/c++/16/fstream /usr/include/c++/16/bits/requires_hosted.h \
  /usr/include/c++/16/x86_64-redhat-linux/bits/c++config.h \
@@ -156,13 +156,4 @@ CMakeFiles/main.dir/main.cpp.o: \
  /usr/include/c++/16/bits/stl_uninitialized.h \
  /usr/include/c++/16/bits/stl_vector.h \
  /usr/include/c++/16/bits/stl_bvector.h \
- /usr/include/c++/16/bits/vector.tcc \
- /home/alex_vankov/Documents/Repositories/CityPortal/include/database.hpp \
- /usr/include/c++/16/algorithm /usr/include/c++/16/bits/stl_algo.h \
- /usr/include/c++/16/bits/algorithmfwd.h \
- /usr/include/c++/16/bits/stl_heap.h \
- /usr/include/c++/16/bits/uniform_int_dist.h \
- /usr/include/c++/16/bits/stl_tempbuf.h \
- /usr/include/c++/16/pstl/glue_algorithm_defs.h \
- /usr/include/c++/16/pstl/execution_defs.h \
- /home/alex_vankov/Documents/Repositories/CityPortal/include/vehicle.hpp
+ /usr/include/c++/16/bits/vector.tcc

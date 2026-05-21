@@ -10,9 +10,7 @@ enum class Role
 
 string roleToStr(Role);
 
-Role strToRole(const string&);
-
-string vectorToStr(const vector<int>&);
+Role strToRole(const string &);
 
 class User : public Entry
 {
@@ -27,10 +25,10 @@ public:
     string getPassword() const { return password; }
     unsigned getAge() const { return age; }
     unsigned getIncome() const { return income; }
-    const vector<int>& getRealEstates() const { return real_estate; }
-    const vector<int>& getVehicles() const { return vehicles; }
+    const vector<int> &getRealEstates() const { return real_estate; }
+    const vector<int> &getVehicles() const { return vehicles; }
     void getInfo() const;
-    const Role& getRole() const { return role; }
+    const Role &getRole() const { return role; }
 
     // setter
     void setFirstname(const string &firstname) { this->firstname = firstname; }
@@ -43,6 +41,8 @@ public:
     void writeToCSV(ofstream &) const override;
     bool loadFromCSV(ifstream &) override;
 
+    template <typename V>                // template<typename V, typename R>
+    void printUserCard(const V &) const; //    void printUserCard(const V&, const R&) const;
     ostream &ins(ostream &) const override;
     istream &ext(istream &) override;
 
@@ -57,5 +57,56 @@ private:
     vector<int> vehicles;
     Role role = Role::CITIZEN;
 };
+
+// template<typename V, typename R>
+// void User::printUserCard(const V& vdb, const R& rdb) const{
+
+template <typename V>
+void User::printUserCard(const V &vdb) const
+{
+    cout << left << setw(6) << getId()
+         << left << setw(15) << firstname
+         << left << setw(15) << lastname
+         << left << setw(17) << username
+         << left << setw(20) << password
+         << left << setw(7) << age
+         << left << setw(10) << income
+         << left << setw(10) << roleToStr(role) << '\n'
+         << string(100, '.') << "\n\n"
+         << "Vehicles:\n";
+
+    if (vehicles.empty())
+        cout << "\n\tDoes not own vehicle!\n\n";
+    else
+    {
+        cout << left << setw(6) << "[ID]"
+             << left << setw(15) << "[Make]"
+             << left << setw(15) << "[Model]"
+             << left << setw(10) << "[Fuel]"
+             << left << setw(7) << "[Price]" << '\n'
+             << string(53, '_') << '\n';
+        for (const auto &v : vehicles)
+        {
+            auto vptr = vdb.find([&v](const auto& vobj){
+                return vobj.getId() == v; });
+            if (vptr)
+                cout << *vptr;
+            else
+                cerr << "\tMissing data for Vehicle [ID]: " << v << '\n';
+        }
+    }
+
+    cout << "Real Estate:\n";
+
+    if (real_estate.empty())
+        cout << "\n\tDoes not own real estate!\n\n";
+    else
+    {
+        // for(const auto &re:real_estate){
+        //     cout << *rdb.find([re](const R& r){ return re == r->getId(); });
+        // }
+    }
+    cout << string(100, '-') << "\n\n";
+}
 
 #endif

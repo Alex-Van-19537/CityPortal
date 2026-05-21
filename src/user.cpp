@@ -20,17 +20,6 @@ Role strToRole(const string &str)
     return Role::CITIZEN;
 }
 
-string vectorToStr(const vector<int> &varr)
-{
-    if (varr.empty())
-        return "";
-    string str = to_string(varr[0]);
-    auto n = varr.size();
-    for (int i = 1; i < int(n); i++)
-        str += ',' + to_string(varr[i]);
-    return str;
-}
-
 User::User(int id,
            const string &fname,
            const string &lname,
@@ -77,11 +66,12 @@ bool User::loadFromCSV(ifstream &in)
         getline(ss, password, ';');
         getline(ss, ageStr, ';');
         getline(ss, incomeStr, ';');
-        getline(ss, real_estate_line, ';');
 
+        getline(ss, real_estate_line, ';');
         if (!real_estate_line.empty()){
             stringstream real_estate_vector(real_estate_line);
             string real_estate_id;
+
             while (getline(real_estate_vector, real_estate_id, ',')){
                 if(!real_estate_id.empty())
                     real_estate.push_back(stoi(real_estate_id));
@@ -143,16 +133,6 @@ ostream &User::ins(ostream &out) const
         out << "\n\t There are real estates\n\n";
         /*for(const auto &re:real_estate){
             out << '\t' << re << '\n';
-        }*/
-    }
-    out << "Vehicles:\n";
-    if (vehicles.empty())
-        out << "\n\tDoes not own vehicles!\n\n";
-    else
-    {
-        out << "\n\tThere are vehicles!\n\n";
-        /*for(const auto &v:vehicles){
-            out << '\t' << v << '\n';
         }*/
     }
     out << string(100, '-') << "\n\n";

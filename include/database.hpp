@@ -20,6 +20,7 @@ public:
     Database() = default;
     Database(const string &);
     bool load(const string &);
+    vector<T> getData() const { return data; }
     bool save() const;
     bool empty() const;
     void list() const;
