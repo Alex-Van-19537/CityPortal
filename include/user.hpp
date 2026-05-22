@@ -41,8 +41,8 @@ public:
     void writeToCSV(ofstream &) const override;
     bool loadFromCSV(ifstream &) override;
 
-    template <typename V>                // template<typename V, typename R>
-    void printUserCard(const V &) const; //    void printUserCard(const V&, const R&) const;
+    template <typename V, typename RE>
+    void printUserCard(const V &, const RE &) const;
     ostream &ins(ostream &) const override;
     istream &ext(istream &) override;
 
@@ -61,9 +61,19 @@ private:
 // template<typename V, typename R>
 // void User::printUserCard(const V& vdb, const R& rdb) const{
 
-template <typename V>
-void User::printUserCard(const V &vdb) const
+template <typename V, typename RE>
+void User::printUserCard(const V &vdb, const RE &redb) const
 {
+    cout << left << setw(6) << "[ID]"
+         << left << setw(15) << "[Firstname]"
+         << left << setw(15) << "[Lastname]"
+         << left << setw(17) << "[Username]"
+         << left << setw(20) << "[Password]"
+         << left << setw(7) << "[Age]"
+         << left << setw(10) << "[Income]"
+         << left << setw(10) << "[Role]" << '\n'
+         << string(100, '=') << "\n";
+
     cout << left << setw(6) << getId()
          << left << setw(15) << firstname
          << left << setw(15) << lastname
@@ -73,10 +83,10 @@ void User::printUserCard(const V &vdb) const
          << left << setw(10) << income
          << left << setw(10) << roleToStr(role) << '\n'
          << string(100, '.') << "\n\n"
-         << "Vehicles:\n";
+         << "🚘 Vehicles:\n";
 
     if (vehicles.empty())
-        cout << "\n\tDoes not own vehicle!\n\n";
+        cout << "\n\t∅ Does not own vehicle!\n\n";
     else
     {
         cout << left << setw(6) << "[ID]"
@@ -84,29 +94,41 @@ void User::printUserCard(const V &vdb) const
              << left << setw(15) << "[Model]"
              << left << setw(10) << "[Fuel]"
              << left << setw(7) << "[Price]" << '\n'
-             << string(53, '_') << '\n';
+             << string(53, '=') << '\n';
         for (const auto &v : vehicles)
         {
-            auto vptr = vdb.find([&v](const auto& vobj){
-                return vobj.getId() == v; });
+            auto vptr = vdb.find([&v](const auto &vobj)
+                                 { return vobj.getId() == v; });
             if (vptr)
                 cout << *vptr;
             else
-                cerr << "\tMissing data for Vehicle [ID]: " << v << '\n';
+                cerr << "\t🤷‍♂️ Missing data for Vehicle [ID]: " << v << '\n';
         }
     }
 
-    cout << "Real Estate:\n";
+    cout << "🏠 Real Estate:\n";
 
     if (real_estate.empty())
-        cout << "\n\tDoes not own real estate!\n\n";
+        cout << "\n\t∅ Does not own real estate!\n\n";
     else
     {
-        // for(const auto &re:real_estate){
-        //     cout << *rdb.find([re](const R& r){ return re == r->getId(); });
-        // }
+        cout << left << setw(6) << "[ID]"
+             << left << setw(15) << "[Type]"
+             << left << setw(30) << "[Address]"
+             << left << setw(10) << "[Size]"
+             << left << setw(7) << "[Price]" << '\n'
+             << string(68, '=') << '\n';
+        for (const auto &re : real_estate)
+        {
+            auto reptr = redb.find([&re](const auto &reobj)
+                                   { return reobj.getId() == re; });
+            if (reptr)
+                cout << *reptr;
+            else
+                cerr << "\t🤷‍♂️ Missing data for Real Estate [ID]: " << re << '\n';
+        }
     }
-    cout << string(100, '-') << "\n\n";
+    cout << string(100, '=') << "\n\n";
 }
 
 #endif

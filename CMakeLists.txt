@@ -11,4 +11,5 @@ main.cpp
 src/entry.cpp
 src/user.cpp
 src/vehicle.cpp
+src/real_estate.cpp
 )

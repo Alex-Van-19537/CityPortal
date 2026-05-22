@@ -6,6 +6,7 @@ main: \
   CMakeFiles/main.dir/src/entry.cpp.o \
   CMakeFiles/main.dir/src/user.cpp.o \
   CMakeFiles/main.dir/src/vehicle.cpp.o \
+  CMakeFiles/main.dir/src/real_estate.cpp.o \
   /usr/lib/gcc/x86_64-redhat-linux/16/libstdc++.so \
   /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/libm.so \
   /usr/lib/gcc/x86_64-redhat-linux/16/../../../../lib64/libm.so \
@@ -54,6 +55,8 @@ CMakeFiles/main.dir/src/entry.cpp.o:
 CMakeFiles/main.dir/src/user.cpp.o:
 
 CMakeFiles/main.dir/src/vehicle.cpp.o:
+
+CMakeFiles/main.dir/src/real_estate.cpp.o:
 
 /usr/lib/gcc/x86_64-redhat-linux/16/libstdc++.so:
 

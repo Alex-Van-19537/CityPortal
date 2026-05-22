@@ -165,4 +165,5 @@ CMakeFiles/main.dir/main.cpp.o: \
  /usr/include/c++/16/bits/stl_tempbuf.h \
  /usr/include/c++/16/pstl/glue_algorithm_defs.h \
  /usr/include/c++/16/pstl/execution_defs.h \
- /home/alex_vankov/Documents/Repositories/CityPortal/include/vehicle.hpp
+ /home/alex_vankov/Documents/Repositories/CityPortal/include/vehicle.hpp \
+ /home/alex_vankov/Documents/Repositories/CityPortal/include/real_estate.hpp

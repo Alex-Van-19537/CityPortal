@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/main.dir/main.cpp.o.d"
   "CMakeFiles/main.dir/src/entry.cpp.o"
   "CMakeFiles/main.dir/src/entry.cpp.o.d"
+  "CMakeFiles/main.dir/src/real_estate.cpp.o"
+  "CMakeFiles/main.dir/src/real_estate.cpp.o.d"
   "CMakeFiles/main.dir/src/user.cpp.o"
   "CMakeFiles/main.dir/src/user.cpp.o.d"
   "CMakeFiles/main.dir/src/vehicle.cpp.o"

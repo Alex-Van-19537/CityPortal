@@ -1,0 +1,17 @@
+# Компилирани обекти и изпълними файлове
+*.o
+*.out
+*.exe
+*.tar
+# CMake файлове и генерирани папки
+build/
+cmake-build-debug/
+CMakeCache.txt
+CMakeFiles/
+
+# IDE и редактори
+.idea/
+.vscode/
+
+# Системни файлове
+.DS_Store

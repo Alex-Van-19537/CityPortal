@@ -123,20 +123,8 @@ ostream &User::ins(ostream &out) const
         << left << setw(7) << age
         << left << setw(10) << income
         << left << setw(10) << roleToStr(role) << '\n'
-        << string(100, '.') << "\n\n"
-        << "Real Estate:\n";
-
-    if (real_estate.empty())
-        out << "\n\tDoes not own real estate!\n\n";
-    else
-    {
-        out << "\n\t There are real estates\n\n";
-        /*for(const auto &re:real_estate){
-            out << '\t' << re << '\n';
-        }*/
-    }
-    out << string(100, '-') << "\n\n";
-    return out;
+        << string(100, '.') << "\n";
+        return out;
 }
 
 istream &User::ext(istream &in)

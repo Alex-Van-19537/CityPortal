@@ -13,6 +13,7 @@ using std::to_string;
 using std::ifstream;
 using std::istream;
 using std::left;
+using std::right;
 using std::ofstream;
 using std::ostream;
 using std::setw;

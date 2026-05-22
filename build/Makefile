@@ -177,6 +177,30 @@ src/entry.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/entry.cpp.s
 .PHONY : src/entry.cpp.s
 
+src/real_estate.o: src/real_estate.cpp.o
+.PHONY : src/real_estate.o
+
+# target to build an object file
+src/real_estate.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/real_estate.cpp.o
+.PHONY : src/real_estate.cpp.o
+
+src/real_estate.i: src/real_estate.cpp.i
+.PHONY : src/real_estate.i
+
+# target to preprocess a source file
+src/real_estate.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/real_estate.cpp.i
+.PHONY : src/real_estate.cpp.i
+
+src/real_estate.s: src/real_estate.cpp.s
+.PHONY : src/real_estate.s
+
+# target to generate assembly for a file
+src/real_estate.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/real_estate.cpp.s
+.PHONY : src/real_estate.cpp.s
+
 src/user.o: src/user.cpp.o
 .PHONY : src/user.o
 
@@ -240,6 +264,9 @@ help:
 	@echo "... src/entry.o"
 	@echo "... src/entry.i"
 	@echo "... src/entry.s"
+	@echo "... src/real_estate.o"
+	@echo "... src/real_estate.i"
+	@echo "... src/real_estate.s"
 	@echo "... src/user.o"
 	@echo "... src/user.i"
 	@echo "... src/user.s"
