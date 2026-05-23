@@ -65,7 +65,7 @@ cmake --version        # Проверка на CMake версия
 
 ### 1. Клониране на Репозиториума
 ```bash
-git clone https://github.com/yourusername/CityPortal.git
+https://github.com/Alex-Van-19537/CityPortal.git
 cd CityPortal
 ```
 
