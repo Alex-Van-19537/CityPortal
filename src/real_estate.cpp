@@ -84,10 +84,10 @@ ostream &RealEstate::ins(ostream &out) const
 {
     out << left << setw(6) << getId()
         << left << setw(15) << ETypeToStr(estateType)
-        << left << setw(30) << address
+        << left << setw(50) << address
         << left << setw(10) << size
         << left << setw(7) << price << '\n'
-        << string(68, '-') << '\n';
+        << string(88, '-') << '\n';
     return out;
 }
 

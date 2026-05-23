@@ -111,10 +111,10 @@ void User::printUserCard(const V &vdb, const RE &redb) const
     {
         cout << left << setw(6) << "[ID]"
              << left << setw(15) << "[Type]"
-             << left << setw(30) << "[Address]"
+             << left << setw(50) << "[Address]"
              << left << setw(10) << "[Size]"
              << left << setw(7) << "[Price]" << '\n'
-             << string(68, '=') << '\n';
+             << string(88, '=') << '\n';
         for (const auto &re : real_estate)
         {
             auto reptr = redb.find([&re](const auto &reobj)

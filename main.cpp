@@ -11,7 +11,7 @@ const string usersFile = "../data/users.csv";
 const string vehiclesFile = "../data/vehicles.csv";
 const string real_estateFile = "../data/real_estate.csv";
 
-void login(Database<User>,const User*&);
+void login(const Database<User>&,const User*&);
 
 int main()
 {
@@ -148,10 +148,10 @@ int main()
                 cout << "\n====================== Real Estate ======================\n\n";
                 cout << left << setw(6) << "[ID]"
                      << left << setw(15) << "[Type]"
-                     << left << setw(30) << "[Address]"
+                     << left << setw(50) << "[Address]"
                      << left << setw(10) << "[Size(m2)]"
                      << left << setw(7) << "[Price]" << '\n'
-                     << string(68, '=') << "\n";
+                     << string(88, '=') << "\n";
                 real_estateDB.list();
                 break;
 
@@ -206,17 +206,7 @@ int main()
             switch (choice)
             {
             case 1:
-                cout << "\n====================== Users ======================\n\n";
-                cout << left << setw(6) << "[ID]"
-                     << left << setw(15) << "[Firstname]"
-                     << left << setw(15) << "[Lastname]"
-                     << left << setw(17) << "[Username]"
-                     << left << setw(20) << "[Password]"
-                     << left << setw(7) << "[Age]"
-                     << left << setw(10) << "[Income]"
-                     << left << setw(10) << "[Role]" << '\n'
-                     << string(100, '=') << "\n\n";
-                cout << *currentUser;
+                currentUser->printUserCard(vehiclesDB, real_estateDB);
                 break;
 
             case 0:
@@ -233,7 +223,7 @@ int main()
     return 0;
 }
 
-void login(Database<User> usersDB, const User*& currentUser){
+void login(const Database<User>& usersDB, const User*& currentUser){
     string username, password;
     cout << "Username: ";
     cin >> username;
