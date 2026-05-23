@@ -31,10 +31,10 @@ public:
     Entry(int);
     virtual ~Entry() = default;
     // getter
-    int getId() const { return id; }
+    int getId() const;
 
     // setter
-    void setId(int id) { this->id = id; }
+    void setId(int id);
 
     virtual void writeToCSV(ofstream &) const = 0;
     virtual bool loadFromCSV(ifstream &) = 0;

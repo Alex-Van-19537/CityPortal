@@ -19,15 +19,15 @@ public:
     Vehicle() = default;
     Vehicle(int, string, string, Fuel, int);
 
-    string getMake() const { return make; }
-    string getModel() const { return model; }
-    Fuel getFuel() const { return fuel; }
-    int getPrice() const { return price; }
+    string getMake() const;
+    string getModel() const;
+    Fuel getFuel() const;
+    int getPrice() const;
 
-    void setMake(string make) { this->make = make; }
-    void setModel(string model) { this->model = model; }
-    void setFuel(Fuel fuel) { this->fuel = fuel; }
-    void setPrice(int price) { this->price = price; }
+    void setMake(string make);
+    void setModel(string model);
+    void setFuel(Fuel fuel);
+    void setPrice(int price);
 
     void writeToCSV(ofstream &) const override;
     bool loadFromCSV(ifstream &) override;

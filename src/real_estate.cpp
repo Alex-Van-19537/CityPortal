@@ -13,6 +13,7 @@ string ETypeToStr(const EstateType &et)
     else
         return "Unknown";
 }
+
 EstateType strToEType(const string &et)
 {
     if (et == "Apartment")
@@ -47,19 +48,25 @@ bool RealEstate::loadFromCSV(ifstream &file)
     if (getline(file >> ws, line))
     {
         stringstream ss(line);
+
         getline(ss, idStr, ';');
         if (!idStr.empty())
             setId(stoi(idStr));
+
         getline(ss, estateTypeStr, ';');
         if (!estateTypeStr.empty())
             estateType = strToEType(estateTypeStr);
+
         getline(ss, address, ';');
+
         getline(ss, sizeStr, ';');
         if (!sizeStr.empty())
             size = stoi(sizeStr);
+
         getline(ss, priceStr);
         if (!priceStr.empty())
             price = stoi(priceStr);
+
         return true;
     }
     return false;
@@ -83,6 +90,7 @@ ostream &RealEstate::ins(ostream &out) const
         << string(68, '-') << '\n';
     return out;
 }
+
 istream &RealEstate::ext(istream &in)
 {
     string estateTypeStr;

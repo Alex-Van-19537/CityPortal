@@ -19,24 +19,24 @@ public:
     User(int, const string &, const string &, const string &, const string &, int, int = 0, const vector<int> & = {}, const vector<int> & = {}, const Role & = Role::CITIZEN);
 
     // getter
-    string getFirstname() const { return firstname; }
-    string getLastname() const { return lastname; }
-    string getUsername() const { return username; }
-    string getPassword() const { return password; }
-    unsigned getAge() const { return age; }
-    unsigned getIncome() const { return income; }
-    const vector<int> &getRealEstates() const { return real_estate; }
-    const vector<int> &getVehicles() const { return vehicles; }
+    string getFirstname() const;
+    string getLastname() const;
+    string getUsername() const;
+    string getPassword() const;
+    unsigned getAge() const;
+    unsigned getIncome() const;
+    const vector<int> &getRealEstates() const;
+    const vector<int> &getVehicles() const;
     void getInfo() const;
-    const Role &getRole() const { return role; }
+    const Role &getRole() const;
 
     // setter
-    void setFirstname(const string &firstname) { this->firstname = firstname; }
-    void setLastname(const string &lastname) { this->lastname = lastname; }
-    void setAge(int age) { this->age = age; }
-    void setIncome(unsigned i) { income = i; }
-    void setRealEstates(vector<int> re) { real_estate = re; }
-    void setVehicles(vector<int> v) { vehicles = v; }
+    void setFirstname(const string &firstname);
+    void setLastname(const string &lastname);
+    void setAge(int age);
+    void setIncome(unsigned i);
+    void setRealEstates(vector<int> re);
+    void setVehicles(vector<int> v);
 
     void writeToCSV(ofstream &) const override;
     bool loadFromCSV(ifstream &) override;
@@ -57,9 +57,6 @@ private:
     vector<int> vehicles;
     Role role = Role::CITIZEN;
 };
-
-// template<typename V, typename R>
-// void User::printUserCard(const V& vdb, const R& rdb) const{
 
 template <typename V, typename RE>
 void User::printUserCard(const V &vdb, const RE &redb) const
@@ -102,7 +99,7 @@ void User::printUserCard(const V &vdb, const RE &redb) const
             if (vptr)
                 cout << *vptr;
             else
-                cerr << "\t🤷‍♂️ Missing data for Vehicle [ID]: " << v << '\n';
+                cerr << "\t🤷 Missing data for Vehicle [ID]: " << v << '\n';
         }
     }
 
@@ -125,7 +122,7 @@ void User::printUserCard(const V &vdb, const RE &redb) const
             if (reptr)
                 cout << *reptr;
             else
-                cerr << "\t🤷‍♂️ Missing data for Real Estate [ID]: " << re << '\n';
+                cerr << "\t🤷 Missing data for Real Estate [ID]: " << re << '\n';
         }
     }
     cout << string(100, '=') << "\n\n";

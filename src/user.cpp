@@ -1,5 +1,23 @@
 #include "user.hpp"
 
+string User::getFirstname() const { return firstname; }
+string User::getLastname() const { return lastname; }
+string User::getUsername() const { return username; }
+string User::getPassword() const { return password; }
+unsigned User::getAge() const { return age; }
+unsigned User::getIncome() const { return income; }
+const vector<int> &User::getRealEstates() const { return real_estate; }
+const vector<int> &User::getVehicles() const { return vehicles; }
+const Role &User::getRole() const { return role; }
+
+void User::setFirstname(const string &firstname) { this->firstname = firstname; }
+void User::setLastname(const string &lastname) { this->lastname = lastname; }
+void User::setAge(int age) { this->age = age; }
+void User::setIncome(unsigned i) { income = i; }
+void User::setRealEstates(vector<int> re) { real_estate = re; }
+void User::setVehicles(vector<int> v) { vehicles = v; }
+
+
 string roleToStr(Role role)
 {
     switch (role)

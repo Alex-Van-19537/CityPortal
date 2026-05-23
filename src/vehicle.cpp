@@ -1,7 +1,5 @@
 #include "vehicle.hpp"
 
-Vehicle::Vehicle(int id, string make, string model, Fuel fuel, int price) : Entry(id), make(make), model(model), fuel(fuel), price(price) {}
-
 string fuelToStr(const Fuel &f)
 {
     if (f == Fuel::PETROL)
@@ -13,6 +11,7 @@ string fuelToStr(const Fuel &f)
     else
         return "Unknown";
 }
+
 Fuel strToFuel(const string &f)
 {
     if (f == "Petrol")
@@ -23,6 +22,58 @@ Fuel strToFuel(const string &f)
         return Fuel::LPG;
     else
         return Fuel::PETROL;
+}
+
+Vehicle::Vehicle(int id, string make, string model, Fuel fuel, int price) : Entry(id), make(make), model(model), fuel(fuel), price(price) {}
+
+string Vehicle::getMake() const { return make; }
+string Vehicle::getModel() const { return model; }
+Fuel Vehicle::getFuel() const { return fuel; }
+int Vehicle::getPrice() const { return price; }
+
+void Vehicle::setMake(string make) { this->make = make; }
+void Vehicle::setModel(string model) { this->model = model; }
+void Vehicle::setFuel(Fuel fuel) { this->fuel = fuel; }
+void Vehicle::setPrice(int price) { this->price = price; }
+
+void Vehicle::writeToCSV(ofstream &file) const
+{
+    if (file)
+        file << getId() << ';' << make << ';' << model << ';' << fuelToStr(fuel) << ';' << price << '\n';
+}
+
+bool Vehicle::loadFromCSV(ifstream &file)
+{
+    if (!file)
+        return false;
+    string line;
+
+    if (getline(file >> ws, line))
+    {
+        stringstream ss(line);
+
+        string idStr;
+        getline(ss, idStr, ';');
+        if (!idStr.empty())
+            setId(stoi(idStr));
+
+        getline(ss, make, ';');
+
+        getline(ss, model, ';');
+
+        string fuelStr;
+        getline(ss, fuelStr, ';');
+        if (!fuelStr.empty())
+            fuel = strToFuel(fuelStr);
+
+        string priceStr;
+        getline(ss, priceStr);
+        if (!priceStr.empty())
+            price = stoi(priceStr);
+
+        return true;
+    }
+    return false;
 }
 
 ostream &Vehicle::ins(ostream &out) const
@@ -39,39 +90,10 @@ ostream &Vehicle::ins(ostream &out) const
 istream &Vehicle::ext(istream &in)
 {
     string fuelStr;
-    getline(in>>ws, make);
+    getline(in >> ws, make);
     getline(in >> ws, model);
     in >> fuelStr >> price;
     in.ignore();
     fuel = strToFuel(fuelStr);
     return in;
-}
-
-void Vehicle::writeToCSV(ofstream &file) const
-{
-    if (file)
-        file << getId() << ';' << make << ';' << model << ';' << fuelToStr(fuel) << ';' << price << '\n';
-}
-bool Vehicle::loadFromCSV(ifstream &file)
-{
-    if (!file)
-        return false;
-    string line;
-
-    if (getline(file >> ws, line))
-    {
-        stringstream ss(line);
-        string idStr;
-        getline(ss, idStr, ';');
-        if(!idStr.empty()) setId(stoi(idStr));
-        getline(ss, make, ';');
-        getline(ss, model, ';');
-        string fuelStr, priceStr;
-        getline(ss, fuelStr, ';');
-        if(!fuelStr.empty()) fuel = strToFuel(fuelStr);
-        getline(ss, priceStr);
-        if(!priceStr.empty())price = stoi(priceStr);
-        return true;
-    }
-    return false;
 }

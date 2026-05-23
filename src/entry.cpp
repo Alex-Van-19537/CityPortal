@@ -1,5 +1,9 @@
 #include "entry.hpp"
 
+int Entry::getId() const { return id; }
+
+void Entry::setId(int id) { this->id = id; }
+
 string vectorToStr(const vector<int> &varr)
 {
     if (varr.empty())
