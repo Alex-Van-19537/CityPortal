@@ -17,17 +17,19 @@ class Vehicle : public Entry
 {
 public:
     Vehicle() = default;
-    Vehicle(int, string, string, Fuel, int);
+    Vehicle(int, string, string, Fuel, int, bool = true);
 
     string getMake() const;
     string getModel() const;
     Fuel getFuel() const;
     int getPrice() const;
+    bool getForSale() const;
 
-    void setMake(string make);
-    void setModel(string model);
-    void setFuel(Fuel fuel);
-    void setPrice(int price);
+    void setMake(string);
+    void setModel(string);
+    void setFuel(Fuel);
+    void setPrice(int);
+    void setForSale(bool);
 
     void writeToCSV(ofstream &) const override;
     bool loadFromCSV(ifstream &) override;
@@ -40,6 +42,7 @@ private:
     string model = "";
     Fuel fuel = Fuel::PETROL;
     int price = 0;
+    bool forSale = true;
 };
 
 #endif

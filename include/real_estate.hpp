@@ -17,17 +17,19 @@ class RealEstate : public Entry
 {
 public:
     RealEstate() = default;
-    RealEstate(int, EstateType, string, int, int);
+    RealEstate(int, EstateType, string, int, int, bool = true);
 
     EstateType getEstateType() const;
     string getAddress() const;
     int getSize() const;
     int getPrice() const;
+    bool getForSale() const;
 
     void setEstateType(const EstateType &);
     void setAddress(const string &);
     void setSize(int);
     void setPrice(int);
+    void setForSale(bool);
 
     bool loadFromCSV(ifstream &) override;
     void writeToCSV(ofstream &) const override;
@@ -40,6 +42,7 @@ private:
     string address = "";
     int size = 0;
     int price = 0;
+    bool forSale = true;
 };
 
 #endif

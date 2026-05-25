@@ -10,6 +10,9 @@ add_executable(main
 main.cpp
 src/entry.cpp
 src/user.cpp
+src/user_service.cpp
 src/vehicle.cpp
+src/vehicle_service.cpp
 src/real_estate.cpp
+src/real_estate_service.cpp
 )

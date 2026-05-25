@@ -20,12 +20,15 @@ public:
     Database() = default;
     Database(const string &);
     bool load(const string &);
-    vector<T> getData() const { return data; }
+    vector<T>& getData() { return data; }
+    const vector<T>& getData() const { return data; }
     bool save() const;
     bool empty() const;
     void list() const;
     template<typename Predicate>
     const T* find(Predicate) const;
+    template<typename Predicate>
+    T* find(Predicate);
     bool add(const T &);
     bool remove(int);
     int getNextId() const;
@@ -92,10 +95,20 @@ void Database<T>::list() const
         cout << d;
     }
 }
+
 template<typename T>
 template<typename Predicate>
 const T* Database<T>::find(Predicate pred) const{
     for(const auto& item:data){
+        if(pred(item)) return &item;
+    }
+    return nullptr;
+}
+
+template<typename T>
+template<typename Predicate>
+T* Database<T>::find(Predicate pred) {
+    for(auto& item:data){
         if(pred(item)) return &item;
     }
     return nullptr;
@@ -115,7 +128,7 @@ template <typename T>
 bool Database<T>::remove(int id)
 {
     auto prevSize = data.size();
-    data.erase(std::remove_if(data.begin(), data.end(), [id](const T &d)
+    data.erase(remove_if(data.begin(), data.end(), [id](const T &d)
                               { return id == d.getId(); }),
                data.end());
 

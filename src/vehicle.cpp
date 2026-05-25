@@ -24,22 +24,24 @@ Fuel strToFuel(const string &f)
         return Fuel::PETROL;
 }
 
-Vehicle::Vehicle(int id, string make, string model, Fuel fuel, int price) : Entry(id), make(make), model(model), fuel(fuel), price(price) {}
+Vehicle::Vehicle(int id, string make, string model, Fuel fuel, int price, bool fs) : Entry(id), make(make), model(model), fuel(fuel), price(price), forSale(fs) {}
 
 string Vehicle::getMake() const { return make; }
 string Vehicle::getModel() const { return model; }
 Fuel Vehicle::getFuel() const { return fuel; }
 int Vehicle::getPrice() const { return price; }
+bool Vehicle::getForSale() const { return forSale; }
 
 void Vehicle::setMake(string make) { this->make = make; }
 void Vehicle::setModel(string model) { this->model = model; }
 void Vehicle::setFuel(Fuel fuel) { this->fuel = fuel; }
 void Vehicle::setPrice(int price) { this->price = price; }
+void Vehicle::setForSale(bool forSale) { this->forSale = forSale; }
 
 void Vehicle::writeToCSV(ofstream &file) const
 {
     if (file)
-        file << getId() << ';' << make << ';' << model << ';' << fuelToStr(fuel) << ';' << price << '\n';
+        file << getId() << ';' << make << ';' << model << ';' << fuelToStr(fuel) << ';' << price << ';' << forSale << '\n';
 }
 
 bool Vehicle::loadFromCSV(ifstream &file)
@@ -67,9 +69,14 @@ bool Vehicle::loadFromCSV(ifstream &file)
             fuel = strToFuel(fuelStr);
 
         string priceStr;
-        getline(ss, priceStr);
+        getline(ss, priceStr, ';');
         if (!priceStr.empty())
             price = stoi(priceStr);
+
+        string forSaleStr;
+        getline(ss, forSaleStr);
+        if (!forSaleStr.empty())
+            forSale = stoi(forSaleStr);
 
         return true;
     }
@@ -82,8 +89,9 @@ ostream &Vehicle::ins(ostream &out) const
         << left << setw(15) << make
         << left << setw(15) << model
         << left << setw(10) << fuelToStr(fuel)
-        << left << setw(7) << price << '\n'
-        << string(53, '-') << '\n';
+        << left << setw(7) << price
+        << left << setw(9) << (forSale ? "true" : "false") << '\n'
+        << string(63, '-') << '\n';
     return out;
 }
 
@@ -92,7 +100,7 @@ istream &Vehicle::ext(istream &in)
     string fuelStr;
     getline(in >> ws, make);
     getline(in >> ws, model);
-    in >> fuelStr >> price;
+    in >> fuelStr >> price >> forSale;
     in.ignore();
     fuel = strToFuel(fuelStr);
     return in;

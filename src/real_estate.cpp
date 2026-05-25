@@ -28,17 +28,19 @@ EstateType strToEType(const string &et)
         return EstateType::APARTMENT;
 }
 
-RealEstate::RealEstate(int id, EstateType et, string addr, int sz, int p) : Entry(id), estateType(et), address(addr), size(sz), price(p) {}
+RealEstate::RealEstate(int id, EstateType et, string addr, int sz, int p, bool fs) : Entry(id), estateType(et), address(addr), size(sz), price(p), forSale(fs) {}
 
 EstateType RealEstate::getEstateType() const { return estateType; }
 string RealEstate::getAddress() const { return address; }
 int RealEstate::getSize() const { return size; }
 int RealEstate::getPrice() const { return price; }
+bool RealEstate::getForSale() const { return forSale; }
 
 void RealEstate::setEstateType(const EstateType &et) { estateType = et; }
 void RealEstate::setAddress(const string &addr) { address = addr; }
 void RealEstate::setSize(const int sz) { size = sz; }
 void RealEstate::setPrice(int p) { price = p; }
+void RealEstate::setForSale(bool forSale) { this->forSale = forSale; }
 
 bool RealEstate::loadFromCSV(ifstream &file)
 {
@@ -63,9 +65,14 @@ bool RealEstate::loadFromCSV(ifstream &file)
         if (!sizeStr.empty())
             size = stoi(sizeStr);
 
-        getline(ss, priceStr);
+        getline(ss, priceStr, ';');
         if (!priceStr.empty())
             price = stoi(priceStr);
+
+        string forSaleStr;
+        getline(ss, forSaleStr);
+        if (!forSaleStr.empty())
+            forSale = stoi(forSaleStr);
 
         return true;
     }
@@ -76,7 +83,7 @@ void RealEstate::writeToCSV(ofstream &file) const
 {
     if (file)
     {
-        file << getId() << ETypeToStr(estateType) << ';' << address << ';' << size << ';' << price << '\n';
+        file << getId() << ';' << ETypeToStr(estateType) << ';' << address << ';' << size << ';' << price << ';' << forSale << '\n';
     }
 }
 
@@ -86,8 +93,9 @@ ostream &RealEstate::ins(ostream &out) const
         << left << setw(15) << ETypeToStr(estateType)
         << left << setw(50) << address
         << left << setw(10) << size
-        << left << setw(7) << price << '\n'
-        << string(88, '-') << '\n';
+        << left << setw(7) << price
+        << left << setw(9) << (forSale ? "true" : "false") << '\n'
+        << string(98, '-') << '\n';
     return out;
 }
 
@@ -98,8 +106,7 @@ istream &RealEstate::ext(istream &in)
     if (!estateTypeStr.empty())
         estateType = strToEType(estateTypeStr);
     getline(in >> ws, address);
-    in >> size;
-    in >> price;
+    in >> size >> price >> forSale;
     in.ignore();
     return in;
 }
