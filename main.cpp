@@ -191,7 +191,7 @@ int main()
             }
 
             case 10:
-                comleteMonth(usersDB);
+                completeMonth(usersDB);
                 break;
 
             case 0:

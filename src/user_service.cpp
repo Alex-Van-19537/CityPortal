@@ -73,7 +73,7 @@ void printUserCard(const User &user, const Database<Vehicle> &vdb, const Databas
     cout << string(108, '=') << "\n\n";
 }
 
-void comleteMonth(Database<User> &udb)
+void completeMonth(Database<User> &udb)
 {
     for (auto &u : udb.getData())
     {
@@ -89,7 +89,7 @@ void comleteMonth(Database<User> &udb)
 void buyRealEstate(User *currentUser, Database<User> &usersDB, Database<RealEstate> &real_estateDB)
 {
     int reId;
-    cout << "Real Esate to buy[ID]: ";
+    cout << "Real Estate to buy[ID]: ";
     cin >> reId;
     RealEstate *reptr = real_estateDB.find([reId](const RealEstate &re)
                                            { return reId == re.getId(); });

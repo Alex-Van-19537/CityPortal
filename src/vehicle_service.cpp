@@ -2,7 +2,7 @@
 
 bool getVehiclesForSale(const Database<Vehicle> &vdb)
 {
-    if (vdb.find([](const Vehicle &v)
+    if (!vdb.find([](const Vehicle &v)
                  { return v.getForSale(); })){
         cout << "\n\t∅ There are no vehicles for sale right now!!\n\n";
         return false;
