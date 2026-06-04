@@ -9,7 +9,7 @@
 
 ## 📋 Описание
 
-**City Portal** е мощно конзолно приложение за управление на градски активи и ресурси. Предоставя интуитивен интерфейс за администратори и граждани с пълна система за контрол на достъпа на основата на роли.
+**City Portal** е конзолно приложение за управление на градски активи и ресурси. Предоставя интуитивен интерфейс за администратори и граждани с пълна система за контрол на достъпа на основата на роли.
 
 Системата позволява управление на:
 - 👥 **Потребители** — регистрация, администриране, управление на роли
@@ -25,21 +25,16 @@
 ### 🔐 Система за Контрол на Достъпа
 
 #### Администратор (Admin)
-- ✅ Преглед на всички потребители с детайли
-- ✅ Добавяне и изтриване на потребители
+- ✅ Управление на потребители (преглед, добавяне, изтриване)
+- ✅ Промяна на дохода и баланса на потребители
+- ✅ Приключване на месец (добавя дохода към баланса на всеки потребител)
 - ✅ Управление на превозни средства (CRUD операции)
 - ✅ Управление на недвижими имоти (CRUD операции)
-- ✅ Преглед на всички активи в системата
-- ✅ Приключване на месец (добавя дохода към баланса на всички потребители)
 
 #### Гражданин (Citizen)
 - ✅ Преглед на личния профил с активи
-- ✅ Преглед на превозни средства за продажба
-- ✅ Листване и сваляне от продажба на собствени превозни средства
-- ✅ Закупуване на превозни средства
-- ✅ Преглед на недвижими имоти за продажба
-- ✅ Листване и сваляне от продажба на собствени недвижими имоти
-- ✅ Закупуване на недвижими имоти
+- ✅ Управление на превозни средства: преглед за продажба, листване, сваляне, закупуване
+- ✅ Управление на недвижими имоти: преглед за продажба, листване, сваляне, закупуване
 
 ### 🗄️ Архитектура на Данните
 - **Template-based Database** — универсална система за управление на данни
@@ -105,7 +100,7 @@ make
 1. Log In
 0. Exit
 
-Choice: 
+Choice:
 ```
 
 ### Вход в Системата
@@ -114,32 +109,72 @@ Choice:
 3. В зависимост от ролята ви ще видите съответното меню
 
 ### Admin Меню
+
+Администраторското меню е организирано в три подменюта:
+
 ```
-1.  List users          - Преглед всички потребители с профили
-2.  Add user            - Добавяне нов потребител
-3.  Delete user         - Изтриване на потребител по ID
-4.  List Vehicles       - Преглед на всички превозни средства
-5.  Add Vehicle         - Добавяне на превозно средство
-6.  Delete vehicle      - Изтриване на превозно средство по ID
-7.  List Real Estate    - Преглед на всички недвижими имоти
-8.  Add Real Estate     - Добавяне на недвижим имот
-9.  Delete Real Estate  - Изтриване на недвижим имот по ID
-10. Complete Month      - Добавя дохода към баланса на всеки потребител
-0.  Log Out             - Изход
+====================== Admin Menu ======================
+
+1. Manage Users
+2. Manage Vehicles
+3. Manage Real Estate
+0. Log Out
+```
+
+#### Manage Users
+```
+1. List users           - Преглед на всички потребители с пълни профили
+2. Add user             - Добавяне на нов потребител
+3. Change user income   - Промяна на месечния доход на потребител
+4. Change user balance  - Промяна на текущия баланс на потребител
+5. Delete user          - Изтриване на потребител по ID
+6. Complete Month       - Добавя дохода към баланса на всеки потребител
+0. Back
+```
+
+#### Manage Vehicles
+```
+1. List Vehicles        - Преглед на всички превозни средства
+2. Add Vehicle          - Добавяне на ново превозно средство
+3. Delete vehicle       - Изтриване на превозно средство по ID
+0. Back
+```
+
+#### Manage Real Estate
+```
+1. List Real Estate     - Преглед на всички недвижими имоти
+2. Add Real Estate      - Добавяне на нов недвижим имот
+3. Delete Real Estate   - Изтриване на недвижим имот по ID
+0. Back
 ```
 
 ### Citizen Меню
+
+Гражданското меню е организирано в три подменюта:
+
 ```
-1. View My Profile              - Профил с притежавани активи
-2. Get Vehicles for sale        - Преглед на превозни средства за продажба
-3. Put Vehicle for sale         - Листване на собствено превозно средство
-4. Delist Vehicle from sale     - Сваляне от продажба на превозно средство
-5. Buy Vehicle                  - Закупуване на превозно средство
-6. Get Real Estate for sale     - Преглед на имоти за продажба
-7. Put Real Estate for sale     - Листване на собствен имот
-8. Delist Real Estate from sale - Сваляне от продажба на имот
-9. Buy Real Estate              - Закупуване на недвижим имот
-0. Log Out                      - Изход
+1. View My Profile
+2. Manage Vehicles
+3. Manage Real Estate
+0. Log Out
+```
+
+#### Manage Vehicles
+```
+1. Get Vehicles for sale        - Преглед на превозни средства за продажба
+2. Put Vehicle for sale         - Листване на собствено превозно средство (с нова цена)
+3. Delist Vehicle from sale     - Сваляне от продажба на превозно средство
+4. Buy Vehicle                  - Закупуване на превозно средство
+0. Back
+```
+
+#### Manage Real Estate
+```
+1. Get Real Estate for sale     - Преглед на имоти за продажба
+2. Put Real Estate for sale     - Листване на собствен имот (с нова цена)
+3. Delist Real Estate from sale - Сваляне от продажба на имот
+4. Buy Real Estate              - Закупуване на недвижим имот
+0. Back
 ```
 
 ### Примерен Профил
@@ -168,7 +203,7 @@ Choice:
 
 Гражданите могат да търгуват директно помежду си:
 
-1. Продавачът избира **Put Vehicle/Real Estate for sale** и въвежда ID на актива.
+1. Продавачът избира **Put Vehicle/Real Estate for sale**, въвежда ID на актива и задава цена.
 2. Купувачът разглежда наличните оферти с **Get Vehicles/Real Estate for sale**.
 3. Купувачът избира **Buy Vehicle/Buy Real Estate** и въвежда ID.
 4. Системата автоматично прехвърля парите, актуализира собствеността и записва промените в CSV файловете.
@@ -184,20 +219,22 @@ CityPortal/
 ├── CMakeLists.txt              # Конфигурация за билдване
 ├── Containerfile               # Docker конфигурация
 ├── README.md                   # Документация
-├── main.cpp                    # Главна логика и менюта
+├── main.cpp                    # Входна точка
 │
 ├── include/                    # Хедър файлове
 │   ├── database.hpp            # Template Database клас
 │   ├── entry.hpp               # Abstract базов клас
+│   ├── menu.hpp                # Декларации на менютата
 │   ├── user.hpp                # User клас
 │   ├── user_service.hpp        # User помощни функции
 │   ├── vehicle.hpp             # Vehicle клас
 │   ├── vehicle_service.hpp     # Vehicle помощни функции
-│   └── real_estate.hpp         # RealEstate клас
+│   ├── real_estate.hpp         # RealEstate клас
 │   └── real_estate_service.hpp # RealEstate помощни функции
 │
 ├── src/                        # Имплементационни файлове
 │   ├── entry.cpp
+│   ├── menu.cpp                # Логика на всички менюта
 │   ├── user.cpp
 │   ├── user_service.cpp
 │   ├── vehicle.cpp
@@ -221,6 +258,7 @@ CityPortal/
 - **Polymorphism**: Всяка същност наследява от `Entry` за единообразна обработка
 - **Role-Based Access Control**: Разлики в достъпа според ролята на потребителя
 - **CSV Persistence**: Данните се запазват между сесиите
+- **Auto-reload**: Базите данни се презареждат преди всяка операция, за да са в актуално състояние
 
 ---
 
@@ -236,7 +274,7 @@ CityPortal/
 | password | string | Парола |
 | age | int | Възраст |
 | income | int | Месечен доход (добавя се при Complete Month) |
-| money | unsigned | Текущ баланс |
+| money | int | Текущ баланс |
 | role | Role | `Admin` или `Citizen` |
 | vehicles | vector\<int\> | ID-та на притежавани превозни средства |
 | real_estate | vector\<int\> | ID-та на притежавани имоти |
@@ -298,12 +336,13 @@ nextId
 Choice: 1
 Username: alex_v
 Password: securepass123
-🥹 Welcome back, alex_v!
+🥹  Welcome back, alex_v!
 ```
 
 ### 2. Добавяне на Нов Потребител
 ```
-Choice: 2
+Choice: 1  // Manage Users
+Choice: 2  // Add user
 Firstname: Maria
 Lastname: Petrova
 Username: maria_p
@@ -314,7 +353,8 @@ Age: 28
 
 ### 3. Добавяне на Превозно Средство
 ```
-Choice: 5
+Choice: 2  // Manage Vehicles
+Choice: 2  // Add Vehicle
 Make: Mercedes
 Model: E-Class
 Fuel [ Petrol, Diesel, LPG ]: Diesel
@@ -324,15 +364,17 @@ Price: 55000
 
 ### 4. Приключване на Месец
 ```
-Choice: 10
+Choice: 1  // Manage Users
+Choice: 6  // Complete Month
 [Success] Completing month!
 // Доходът на всеки потребител се добавя към баланса му
 ```
 
 ### 5. Закупуване на Имот като Гражданин
 ```
-Choice: 6   // Преглед на имоти за продажба
-Choice: 9   // Купуване
+Choice: 3   // Manage Real Estate
+Choice: 1   // Get Real Estate for sale
+Choice: 4   // Buy Real Estate
 Real Estate to buy[ID]: 2
 [Success] Transaction is successful and Real Estate with ID [2] is yours!
 ```
@@ -343,7 +385,7 @@ Real Estate to buy[ID]: 2
 
 ⚠️ **Известни Ограничения**
 - Паролите се съхраняват в обикновен текст — за production се препоръчва хеширане (bcrypt)
-- Входните данни не се валидират — препоръчва се добавяне на проверки
+- Входните данни не се валидират напълно — препоръчва се добавяне на проверки
 - CSV файловете не са криптирани — чувствителните данни са четими
 
 ---
@@ -351,10 +393,11 @@ Real Estate to buy[ID]: 2
 ## 🔄 Статус на Проекта
 
 - ✅ Core функционалност (Users, Vehicles, RealEstate)
-- ✅ Role-Based Access Control
-- ✅ CSV persistence
+- ✅ Role-Based Access Control с подменюта
+- ✅ CSV persistence с auto-reload
 - ✅ Marketplace (покупко-продажба между потребители)
 - ✅ Complete Month (начисляване на доход)
+- ✅ Промяна на доход и баланс от администратор
 - 🔄 Input validation и санитизация
 - 🔄 Error handling
 - ⏳ Unit tests
