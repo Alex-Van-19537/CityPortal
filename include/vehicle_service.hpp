@@ -3,7 +3,7 @@
 #include "database.hpp"
 #include "vehicle.hpp"
 
-bool getVehiclesForSale(const Database<Vehicle>&);
-
+bool getVehiclesForSale(const Database<Vehicle> &);
+void getAllVehicles(const Database<Vehicle> &);
 
 #endif

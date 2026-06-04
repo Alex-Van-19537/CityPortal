@@ -19,16 +19,16 @@ class User : public Entry
 {
 public:
     User() = default;
-    User(int, const string &, const string &, const string &, const string &, int, int = 0, unsigned = 0, const vector<int> & = {}, const vector<int> & = {}, const Role & = Role::CITIZEN);
+    User(int, const string &, const string &, const string &, const string &, int, int = 0, int = 0, const vector<int> & = {}, const vector<int> & = {}, const Role & = Role::CITIZEN);
 
     // getter
     string getFirstname() const;
     string getLastname() const;
     string getUsername() const;
     string getPassword() const;
-    unsigned getAge() const;
-    unsigned getIncome() const;
-    unsigned getMoney() const;
+    int getAge() const;
+    int getIncome() const;
+    int getMoney() const;
     vector<int> getRealEstates() const;
     vector<int> getVehicles() const;
     const Role &getRole() const;
@@ -41,8 +41,8 @@ public:
     void setFirstname(const string &);
     void setLastname(const string &);
     void setAge(int);
-    void setIncome(unsigned);
-    void setMoney(unsigned);
+    void setIncome(int);
+    void setMoney(int);
     void setRealEstates(vector<int>);
     void setVehicles(vector<int>);
 
@@ -57,9 +57,9 @@ private:
     string lastname = "";
     string username = "";
     string password = "";
-    unsigned age = 0;
-    unsigned income = 0;
-    unsigned money = 0;
+    int age = 0;
+    int income = 0;
+    int money = 0;
     vector<int> real_estate;
     vector<int> vehicles;
     Role role = Role::CITIZEN;

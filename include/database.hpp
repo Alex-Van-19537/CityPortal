@@ -32,6 +32,7 @@ public:
     bool add(const T &);
     bool remove(int);
     int getNextId() const;
+    void reload();
 
 private:
     int nextId = 1;
@@ -65,6 +66,23 @@ bool Database<T>::load(const string &fname)
     file.close();
     currentFile = fname;
     return true;
+}
+
+template<typename T>
+void Database<T>::reload() {
+    T temp;
+    string nextIdStr;
+    data.clear();
+    ifstream file(currentFile);
+    file.clear();
+    file.seekg(0, std::ios::beg);
+    if (getline(file >> std::ws, nextIdStr))
+        nextId = stoi(nextIdStr);
+    else
+        nextId = 1;
+    while (temp.loadFromCSV(file))
+        data.push_back(temp);
+    file.close();
 }
 
 template <typename T>

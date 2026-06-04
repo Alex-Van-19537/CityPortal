@@ -1,9 +1,9 @@
 9
-1;Alexander;Vankov;alex_vankov;12345;23;0;1000000;;1,2;Admin
-2;Nadezhda;Valkovska;nadejdi4ka;12345;24;3500;1000000;4,6;;Citizen
-3;Ivan;Ivanov;vankata;pass123;45;12000;274000;1,5;3,4;Citizen
-4;Dimitar;Georgiev;mitko99;qwerty;21;1800;6100;;;Citizen
-5;Elena;Petrova;eli_p;securepass;34;5500;96000;2;5;Citizen
-6;Georgi;Dimitrov;goshko;adminpass;50;8000;516000;3;;Admin
-7;Georgi;Angelov;hubaveza;696969;28;5000000;5000000;;;Citizen
-8;Antoan;Malinov;Antoan1701;1234;20;0;0;;;Citizen
+1;Alexander;Vankov;alex_vankov;12345;23;500;102500;;1,2;Admin
+2;Nadezhda;Valkovska;nadejdi4ka;12345;24;3500;17500;4,6,7;;Citizen
+3;Ivan;Ivanov;vankata;pass123;45;12000;334000;1,5;3,4;Citizen
+4;Dimitar;Georgiev;mitko99;qwerty;21;1800;15100;;;Citizen
+5;Elena;Petrova;eli_p;securepass;34;5500;135200;2;6;Citizen
+6;Georgi;Dimitrov;goshko;adminpass;50;8000;556000;3;;Admin
+7;Georgi;Angelov;hubaveza;696969;28;5000000;6;;5;Citizen
+8;Antoan;Malinov;Antoan1701;1234;20;10;17;;;Citizen

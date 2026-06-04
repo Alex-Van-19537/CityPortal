@@ -1,5 +1,20 @@
 #include "user_service.hpp"
 
+void printUsersShort(const Database<User> &usersDB)
+{
+    cout << left << setw(6) << "[ID]"
+         << left << setw(15) << "[Firstname]"
+         << left << setw(15) << "[Lastname]"
+         << left << setw(10) << "[Income]"
+         << left << setw(10) << "[Money]"
+         << left << setw(10) << "[Role]" << '\n'
+         << string(70, '-') << "\n";
+    for (auto &u : usersDB.getData())
+    {
+        u.getInfo();
+    }
+}
+
 void printUserCard(const User &user, const Database<Vehicle> &vdb, const Database<RealEstate> &redb)
 {
     cout << left << setw(6) << "[ID]"
@@ -9,9 +24,9 @@ void printUserCard(const User &user, const Database<Vehicle> &vdb, const Databas
          << left << setw(20) << "[Password]"
          << left << setw(7) << "[Age]"
          << left << setw(10) << "[Income]"
-         << left << setw(8) << "[Money]"
+         << left << setw(10) << "[Money]"
          << left << setw(10) << "[Role]" << '\n'
-         << string(108, '=') << "\n";
+         << string(110, '=') << "\n";
 
     cout << left << setw(6) << user.getId()
          << left << setw(15) << user.getFirstname()
@@ -20,9 +35,9 @@ void printUserCard(const User &user, const Database<Vehicle> &vdb, const Databas
          << left << setw(20) << user.getPassword()
          << left << setw(7) << user.getAge()
          << left << setw(10) << user.getIncome()
-         << left << setw(8) << user.getMoney()
+         << left << setw(10) << user.getMoney()
          << left << setw(10) << roleToStr(user.getRole()) << '\n'
-         << string(108, '.') << "\n\n"
+         << string(110, '.') << "\n\n"
          << "🚘 Vehicles:\n";
 
     if (user.getVehicles().empty())
@@ -77,7 +92,7 @@ void completeMonth(Database<User> &udb)
 {
     for (auto &u : udb.getData())
     {
-        unsigned newBalance = u.getMoney() + u.getIncome();
+        int newBalance = u.getMoney() + u.getIncome();
         u.setMoney(newBalance);
     }
     if (!udb.save())
@@ -141,6 +156,7 @@ void buyRealEstate(User *currentUser, Database<User> &usersDB, Database<RealEsta
         cout << "[Success] Transaction is successful and Real Estate with ID [" << reId << "] is yours!\n";
     }
 }
+
 void buyVehicle(User *currentUser, Database<User> &usersDB, Database<Vehicle> &vehiclesDB)
 {
     int vehicleId;
