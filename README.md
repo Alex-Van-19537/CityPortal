@@ -398,6 +398,7 @@ Real Estate to buy[ID]: 2
 - ✅ Marketplace (покупко-продажба между потребители)
 - ✅ Complete Month (начисляване на доход)
 - ✅ Промяна на доход и баланс от администратор
+- 🔄 Events logging
 - 🔄 Input validation и санитизация
 - 🔄 Error handling
 - ⏳ Unit tests
