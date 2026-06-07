@@ -89,7 +89,7 @@ classDiagram
   Entry <|-- Vehicle : наследява
   Entry <|-- User : наследява
 
-  Database~T~ --* Entry : използва
+  Database~T~ --> Entry : използва
 
   User --> Role : има
   RealEstate --> EstateType : има
