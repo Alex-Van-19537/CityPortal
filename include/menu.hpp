@@ -19,6 +19,11 @@ using std::string;
 void login(Database<User> &, User *&);
 bool enterLogInMenu(User *&, Database<User> &, Database<Vehicle> &, Database<RealEstate> &);
 void enterAdminMenu(Database<User>&, Database<Vehicle>&, Database<RealEstate>&);
-void enterCitizenMenu(User*& currentUser, Database<User>&, Database<Vehicle>&, Database<RealEstate>&);
+void enterAdminManageUsersMenu(Database<User>&, Database<Vehicle>&, Database<RealEstate>&);
+void enterAdminManageVehiclesMenu(Database<User>&, Database<Vehicle>&, Database<RealEstate>&);
+void enterAdminManageRealEstateMenu(Database<User>&, Database<Vehicle>&, Database<RealEstate>&);
+void enterCitizenMenu(User*&, Database<User>&, Database<Vehicle>&, Database<RealEstate>&);
+void enterCitizenManageVehiclesMenu(User*&, Database<User>&, Database<Vehicle>&, Database<RealEstate>&);
+void enterCitizenManageRealEstateMenu(User*&, Database<User>&, Database<Vehicle>&, Database<RealEstate>&);
 
 #endif

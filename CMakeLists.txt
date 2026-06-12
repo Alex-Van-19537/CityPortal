@@ -16,4 +16,5 @@ src/vehicle_service.cpp
 src/real_estate.cpp
 src/real_estate_service.cpp
 src/menu.cpp
+src/app.cpp
 )
