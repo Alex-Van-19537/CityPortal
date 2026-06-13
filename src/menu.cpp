@@ -9,6 +9,47 @@ const string USERS_ADMIN_MENU = "1. List users\n2. Add user\n3. Change user inco
 const string VEHICLES_ADMIN_MENU = "1. List Vehicles\n2. Add Vehicle\n3. Delete vehicle\n0. Back\n";
 const string RE_ADMIN_MENU = "1. List Real Estate\n2. Add Real Estate\n3. Delete Real Estate\n0. Back\n";
 
+int getValidInt()
+{
+    int choice;
+    if (!(cin >> choice))
+    {
+        cin.clear();
+        choice = -1;
+    }
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    return choice;
+}
+
+char getValidChar()
+{
+    char choice;
+    if (!(cin >> choice))
+    {
+        cin.clear();
+        choice = '\0';
+    }
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    return choice;
+}
+
+bool assuringPrompt()
+{
+    char choice = ' ';
+    int cnt = 0;
+    while (choice != 'n' && choice != 'y' && cnt != 3)
+    {
+        cout << "Are you sure you want to proceed whit this operation [y/n]: ";
+        choice = getValidChar();
+        choice = std::tolower(choice);
+        cnt++;
+    }
+    if (choice == 'y')
+        return true;
+    cout << "Operation aborted!\n";
+    return false;
+}
+
 void login(Database<User> &usersDB, User *&currentUser)
 {
     string username, password;
@@ -40,16 +81,10 @@ bool enterLogInMenu(User *&currentUser, Database<User> &usersDB, Database<Vehicl
         cout << "\n====================== City Portal Application ======================\n\n";
         cout << LOGIN_MENU;
         cout << "\nChoice: ";
-        if (!(cin >> choice))
-        {
-            cin.clear();
-            choice = -1;
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
+        choice = getValidInt();
         usersDB.reload();
         vehiclesDB.reload();
         real_estateDB.reload();
-        cin.ignore();
 
         switch (choice)
         {
@@ -68,7 +103,7 @@ bool enterLogInMenu(User *&currentUser, Database<User> &usersDB, Database<Vehicl
             return false;
 
         default:
-            cerr << "❓ Invalid command!\n";
+            cerr << "⛔ Invalid command!\n";
             choice = -1;
         }
     } while (choice != 0);
@@ -83,16 +118,10 @@ void enterAdminMenu(Database<User> &usersDB, Database<Vehicle> &vehiclesDB, Data
         cout << "\n====================== Admin Menu ======================\n\n";
         cout << MAIN_ADMIN_MENU;
         cout << "\nChoice: ";
-        if (!(cin >> choice))
-        {
-            cin.clear();
-            choice = -1;
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
+        choice = getValidInt();
         usersDB.reload();
         vehiclesDB.reload();
         real_estateDB.reload();
-        cin.ignore();
 
         switch (choice)
         {
@@ -114,7 +143,7 @@ void enterAdminMenu(Database<User> &usersDB, Database<Vehicle> &vehiclesDB, Data
         case 0:
             break;
         default:
-            cerr << "\n\tInvalid command!\n";
+            cerr << "\n\t⛔ Invalid command!\n";
             choice = -1;
         }
     } while (choice != 0);
@@ -128,17 +157,10 @@ void enterAdminManageUsersMenu(Database<User> &usersDB, Database<Vehicle> &vehic
         cout << "\n====================== Manage Users ======================\n\n";
         cout << USERS_ADMIN_MENU;
         cout << "\nChoice: ";
-        if (!(cin >> choice))
-        {
-            cin.clear();
-            choice = -1;
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
+        choice = getValidInt();
         usersDB.reload();
         vehiclesDB.reload();
         real_estateDB.reload();
-        cin.ignore();
-
         switch (choice)
         {
         case 1:
@@ -149,7 +171,7 @@ void enterAdminManageUsersMenu(Database<User> &usersDB, Database<Vehicle> &vehic
         case 2:
         {
             string firstname, lastname, username, password;
-            int age;
+            int age = -1, cnt = 0;
             cout << "Firstname: ";
             getline(cin >> ws, firstname);
             cout << "Lastname: ";
@@ -158,9 +180,17 @@ void enterAdminManageUsersMenu(Database<User> &usersDB, Database<Vehicle> &vehic
             getline(cin >> ws, username);
             cout << "Password: ";
             getline(cin >> ws, password);
-            cout << "Age: ";
-            cin >> age;
-            cin.ignore();
+            while (age < 0 && age > 120 && cnt <= 3)
+            {
+                cout << "Age (0 - 120): ";
+                age = getValidInt();
+                cnt++;
+            }
+            if (age < 0 || age > 120)
+            {
+                cout << "Operation aborted!\n";
+                break;
+            }
 
             usersDB.add(User(usersDB.getNextId(), firstname, lastname, username, password, age));
             cout << "✅ [Success]: User added with ID: " << usersDB.getNextId() - 1 << "!\n";
@@ -172,18 +202,17 @@ void enterAdminManageUsersMenu(Database<User> &usersDB, Database<Vehicle> &vehic
             int uId;
             printUsersShort(usersDB);
             cout << "User to be modified [ID]: ";
-            cin >> uId;
-            cin.ignore();
+            uId = getValidInt();
             User *user = usersDB.find([uId](const User &u)
                                       { return u.getId() == uId; });
             if (!user)
             {
-                cerr << "⛔There is not user with ID: " << uId << '\n';
+                cerr << "⛔ There is not user with ID: " << uId << '\n';
                 break;
             }
             int newIncome;
             cout << "Change income to: ";
-            cin >> newIncome;
+            newIncome = getValidInt();
             if (newIncome < 0)
             {
                 cerr << "\n\t⛔ Citizens cannot have negative income!\n";
@@ -199,34 +228,21 @@ void enterAdminManageUsersMenu(Database<User> &usersDB, Database<Vehicle> &vehic
             int uId;
             printUsersShort(usersDB);
             cout << "User to be modified [ID]: ";
-            cin >> uId;
-            cin.ignore();
+            uId = getValidInt();
             User *user = usersDB.find([uId](const User &u)
                                       { return u.getId() == uId; });
             if (!user)
             {
-                cerr << "⛔There is not user with ID: " << uId << '\n';
+                cerr << "⛔ There is not user with ID: " << uId << '\n';
                 break;
             }
             int newMoney;
             cout << "Change money to: ";
-            cin >> newMoney;
+            newMoney = getValidInt();
             if (newMoney < 0)
             {
-                cout << "Are you sure you want to change the amount to negative value [y/n]: ";
-                char sChoice;
-                cin >> sChoice;
-                cin.ignore();
-                if (sChoice == 'n')
+                if (!assuringPrompt())
                     break;
-                else if (sChoice == 'y')
-                {
-                }
-                else
-                {
-                    cerr << "\n\t⛔ Invalid command! Returning to the main menu!\n";
-                    break;
-                }
             }
             user->setMoney(newMoney);
             usersDB.save();
@@ -238,8 +254,9 @@ void enterAdminManageUsersMenu(Database<User> &usersDB, Database<Vehicle> &vehic
             int deleteId;
             printUsersShort(usersDB);
             cout << "User to be deleted [ID]: ";
-            cin >> deleteId;
-            cin.ignore();
+            deleteId = getValidInt();
+            if (!assuringPrompt())
+                break;
             if (usersDB.remove(deleteId))
                 cout << "✅ [Success]: User with ID " << deleteId << " was deleted!\n";
             else
@@ -254,7 +271,7 @@ void enterAdminManageUsersMenu(Database<User> &usersDB, Database<Vehicle> &vehic
         case 0:
             break;
         default:
-            cerr << "\n\tInvalid command!\n";
+            cerr << "\n\t⛔ Invalid command!\n";
             choice = -1;
         }
     } while (choice != 0);
@@ -268,16 +285,10 @@ void enterAdminManageVehiclesMenu(Database<User> &usersDB, Database<Vehicle> &ve
         cout << "\n====================== Manage Vehicles ======================\n\n";
         cout << VEHICLES_ADMIN_MENU;
         cout << "\nChoice: ";
-        if (!(cin >> choice))
-        {
-            cin.clear();
-            choice = -1;
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
+        choice = getValidInt();
         usersDB.reload();
         vehiclesDB.reload();
         real_estateDB.reload();
-        cin.ignore();
         switch (choice)
         {
         case 1:
@@ -303,8 +314,7 @@ void enterAdminManageVehiclesMenu(Database<User> &usersDB, Database<Vehicle> &ve
             cout << "Fuel [ Petrol, Diesel, LPG ]: ";
             getline(cin >> ws, fuelStr);
             cout << "Price: ";
-            cin >> price;
-            cin.ignore();
+            price = getValidInt();
 
             vehiclesDB.add(Vehicle(vehiclesDB.getNextId(), make, model, strToFuel(fuelStr), price));
             cout << "✅ [Success]: Vehicle added with ID: " << vehiclesDB.getNextId() - 1 << "!\n";
@@ -316,8 +326,9 @@ void enterAdminManageVehiclesMenu(Database<User> &usersDB, Database<Vehicle> &ve
             int deleteId;
             getAllVehicles(vehiclesDB);
             cout << "Vehicle to be deleted [ID]: ";
-            cin >> deleteId;
-            cin.ignore();
+            deleteId = getValidInt();
+            if (!assuringPrompt())
+                break;
             if (vehiclesDB.remove(deleteId))
                 cout << "✅ [Success]: Vehicle with ID " << deleteId << " was deleted!\n";
             else
@@ -327,7 +338,7 @@ void enterAdminManageVehiclesMenu(Database<User> &usersDB, Database<Vehicle> &ve
         case 0:
             break;
         default:
-            cerr << "\n\tInvalid command!\n";
+            cerr << "\n\t⛔ Invalid command!\n";
             choice = -1;
             break;
         }
@@ -342,16 +353,10 @@ void enterAdminManageRealEstateMenu(Database<User> &usersDB, Database<Vehicle> &
         cout << "\n====================== Manage Real Estate ======================\n\n";
         cout << RE_ADMIN_MENU;
         cout << "\nChoice: ";
-        if (!(cin >> choice))
-        {
-            cin.clear();
-            choice = -1;
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
+        choice = getValidInt();
         usersDB.reload();
         vehiclesDB.reload();
         real_estateDB.reload();
-        cin.ignore();
 
         switch (choice)
         {
@@ -378,8 +383,7 @@ void enterAdminManageRealEstateMenu(Database<User> &usersDB, Database<Vehicle> &
             cout << "Size [m2]: ";
             cin >> size;
             cout << "Price: ";
-            cin >> price;
-            cin.ignore();
+            price = getValidInt();
 
             real_estateDB.add(RealEstate(real_estateDB.getNextId(), strToEType(type), address, size, price));
             cout << "✅ [Success]: Real Estate added with ID: " << real_estateDB.getNextId() - 1 << "!\n";
@@ -391,8 +395,9 @@ void enterAdminManageRealEstateMenu(Database<User> &usersDB, Database<Vehicle> &
             int deleteId;
             getAllRE(real_estateDB);
             cout << "Real Estate to be deleted [ID]: ";
-            cin >> deleteId;
-            cin.ignore();
+            deleteId = getValidInt();
+            if (!assuringPrompt())
+                break;
             if (real_estateDB.remove(deleteId))
                 cout << "✅ [Success]: Real Estate with ID " << deleteId << " was deleted!\n";
             else
@@ -402,7 +407,7 @@ void enterAdminManageRealEstateMenu(Database<User> &usersDB, Database<Vehicle> &
         case 0:
             break;
         default:
-            cerr << "\n\tInvalid command!\n";
+            cerr << "\n\t⛔ Invalid command!\n";
             choice = -1;
             break;
         }
@@ -417,16 +422,10 @@ void enterCitizenMenu(User *&currentUser, Database<User> &usersDB, Database<Vehi
         cout << "\n====================== Citizen Menu ======================\n\n";
         cout << MAIN_CITIZEN_MENU;
         cout << "\nChoice: ";
-        if (!(cin >> choice))
-        {
-            cin.clear();
-            choice = -1;
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
+        choice = getValidInt();
         usersDB.reload();
         vehiclesDB.reload();
         real_estateDB.reload();
-        cin.ignore();
 
         switch (choice)
         {
@@ -451,7 +450,7 @@ void enterCitizenMenu(User *&currentUser, Database<User> &usersDB, Database<Vehi
         }
         default:
         {
-            cerr << "\n\tInvalid command!\n";
+            cerr << "\n\t⛔ Invalid command!\n";
             choice = -1;
         }
         }
@@ -466,16 +465,10 @@ void enterCitizenManageVehiclesMenu(User *&currentUser, Database<User> &usersDB,
         cout << "\n====================== Manage Vehicles ======================\n\n";
         cout << VEHICLE_CITIZEN_MENU;
         cout << "\nChoice: ";
-        if (!(cin >> choice))
-        {
-            cin.clear();
-            choice = -1;
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
+        choice = getValidInt();
         usersDB.reload();
         vehiclesDB.reload();
         real_estateDB.reload();
-        cin.ignore();
 
         switch (choice)
         {
@@ -490,7 +483,7 @@ void enterCitizenManageVehiclesMenu(User *&currentUser, Database<User> &usersDB,
             if (!currentUser->showVehicles(vehiclesDB))
                 break;
             cout << "Vehicle to be listed for sale [ID]: ";
-            cin >> vehicleId;
+            vehicleId = getValidInt();
             Vehicle *vptr = vehiclesDB.find([vehicleId](const Vehicle &v)
                                             { return vehicleId == v.getId(); });
             if (vptr)
@@ -501,31 +494,33 @@ void enterCitizenManageVehiclesMenu(User *&currentUser, Database<User> &usersDB,
                     {
                         if (vptr->getForSale())
                         {
-                            cout << "[Fail] Vehicle with ID [" << vptr->getId() << "] is already for sale!\n";
+                            cout << "❌ [Fail] Vehicle with ID [" << vptr->getId() << "] is already for sale!\n";
                             break;
                         }
                         cout << "Set the price: ";
                         int price;
-                        cin >> price;
+                        price = getValidInt();
                         if (price < 0)
                         {
-                            cerr << "\n\t⛔Price cannot be negative!\n";
+                            cerr << "\n\t⛔ Price cannot be negative!\n";
                             break;
                         }
+                        if (!assuringPrompt())
+                            break;
                         vptr->setPrice(price);
                         vptr->setForSale(true);
                         if (!vehiclesDB.save())
                         {
-                            cout << "[Fail] Vehicle with ID [" << vptr->getId() << "] failed to be put for sale!\n";
+                            cout << "❌ [Fail] Vehicle with ID [" << vptr->getId() << "] failed to be put for sale!\n";
                             break;
                         }
-                        cout << "[Success] Vehicle with ID [" << vptr->getId() << "] is put for sale!\n";
+                        cout << "✅ [Success] Vehicle with ID [" << vptr->getId() << "] is put for sale!\n";
                         break;
                     }
                 }
             }
             else
-                cout << "[Fail] You don't own vehicle with ID [" << vehicleId << "]!\n";
+                cout << "❌ [Fail] You don't own vehicle with ID [" << vehicleId << "]!\n";
             break;
         }
         case 3:
@@ -534,7 +529,7 @@ void enterCitizenManageVehiclesMenu(User *&currentUser, Database<User> &usersDB,
             if (!currentUser->showVehicles(vehiclesDB))
                 break;
             cout << "Vehicle to be delisted from sale [ID]: ";
-            cin >> vehicleId;
+            vehicleId = getValidInt();
             Vehicle *vptr = vehiclesDB.find([vehicleId](const Vehicle &v)
                                             { return vehicleId == v.getId(); });
             if (vptr)
@@ -545,22 +540,24 @@ void enterCitizenManageVehiclesMenu(User *&currentUser, Database<User> &usersDB,
                     {
                         if (!vptr->getForSale())
                         {
-                            cout << "[Fail] Vehicle with ID [" << vptr->getId() << "] is not for sale!\n";
+                            cout << "❌ [Fail] Vehicle with ID [" << vptr->getId() << "] is not for sale!\n";
                             break;
                         }
+                        if (!assuringPrompt())
+                            break;
                         vptr->setForSale(false);
                         if (!vehiclesDB.save())
                         {
-                            cout << "[Fail] Vehicle with ID [" << vptr->getId() << "] failed to be delisted from sale!\n";
+                            cout << "❌ [Fail] Vehicle with ID [" << vptr->getId() << "] failed to be delisted from sale!\n";
                             break;
                         }
-                        cout << "[Success] Vehicle with ID [" << vptr->getId() << "] is delisted from sale!\n";
+                        cout << "✅ [Success] Vehicle with ID [" << vptr->getId() << "] is delisted from sale!\n";
                         break;
                     }
                 }
             }
             else
-                cout << "[Fail] You don't own Vehicle with ID [" << vehicleId << "]!\n";
+                cout << "❌ [Fail] You don't own Vehicle with ID [" << vehicleId << "]!\n";
             break;
         }
         case 4:
@@ -575,7 +572,7 @@ void enterCitizenManageVehiclesMenu(User *&currentUser, Database<User> &usersDB,
         }
         default:
         {
-            cerr << "\n\tInvalid command!\n";
+            cerr << "\n\t⛔ Invalid command!\n";
             choice = -1;
         }
         }
@@ -589,16 +586,10 @@ void enterCitizenManageRealEstateMenu(User *&currentUser, Database<User> &usersD
         cout << "\n====================== Manage Real Estate ======================\n\n";
         cout << RE_CITIZEN_MENU;
         cout << "\nChoice: ";
-        if (!(cin >> choice))
-        {
-            cin.clear();
-            choice = -1;
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
+        choice = getValidInt();
         usersDB.reload();
         vehiclesDB.reload();
         real_estateDB.reload();
-        cin.ignore();
 
         switch (choice)
         {
@@ -613,7 +604,7 @@ void enterCitizenManageRealEstateMenu(User *&currentUser, Database<User> &usersD
             if (!currentUser->showRealEstate(real_estateDB))
                 break;
             cout << "Real Estate to be listed for sale [ID]: ";
-            cin >> reId;
+            reId = getValidInt();
             RealEstate *reptr = real_estateDB.find([reId](const RealEstate &re)
                                                    { return reId == re.getId(); });
             if (reptr)
@@ -624,32 +615,33 @@ void enterCitizenManageRealEstateMenu(User *&currentUser, Database<User> &usersD
                     {
                         if (reptr->getForSale())
                         {
-                            cout << "[Fail] Real Estate with ID [" << reptr->getId() << "] is already for sale!\n";
+                            cout << "❌ [Fail] Real Estate with ID [" << reptr->getId() << "] is already for sale!\n";
                             break;
                         }
                         cout << "Set the price: ";
                         int price;
-                        cin >> price;
+                        price = getValidInt();
                         if (price < 0)
                         {
-                            cerr << "\n\t⛔Price cannot be negative!\n";
+                            cerr << "\n\t⛔ Price cannot be negative!\n";
                             break;
                         }
+                        if (!assuringPrompt())
+                            break;
                         reptr->setPrice(price);
-                        reptr->setForSale(true);
                         reptr->setForSale(true);
                         if (!real_estateDB.save())
                         {
-                            cout << "[Fail] Real Estate with ID [" << reptr->getId() << "] failed to be put for sale!\n";
+                            cout << "❌ [Fail] Real Estate with ID [" << reptr->getId() << "] failed to be put for sale!\n";
                             break;
                         }
-                        cout << "[Success] Real Estate with ID [" << reptr->getId() << "] is put for sale!\n";
+                        cout << "✅ [Success] Real Estate with ID [" << reptr->getId() << "] is put for sale!\n";
                         break;
                     }
                 }
             }
             else
-                cout << "[Fail] You don't own Real Estate with ID [" << reId << "]!\n";
+                cout << "❌[Fail] You don't own Real Estate with ID [" << reId << "]!\n";
             break;
         }
         case 3:
@@ -658,7 +650,7 @@ void enterCitizenManageRealEstateMenu(User *&currentUser, Database<User> &usersD
             if (!currentUser->showRealEstate(real_estateDB))
                 break;
             cout << "Real Estate to be delisted from sale [ID]: ";
-            cin >> reId;
+            reId = getValidInt();
             RealEstate *reptr = real_estateDB.find([reId](const RealEstate &re)
                                                    { return reId == re.getId(); });
             if (reptr)
@@ -669,22 +661,24 @@ void enterCitizenManageRealEstateMenu(User *&currentUser, Database<User> &usersD
                     {
                         if (!reptr->getForSale())
                         {
-                            cout << "[Fail] Real Estate with ID [" << reptr->getId() << "] is not for sale!\n";
+                            cout << "❌ [Fail] Real Estate with ID [" << reptr->getId() << "] is not for sale!\n";
                             break;
                         }
+                        if (!assuringPrompt())
+                            break;
                         reptr->setForSale(false);
                         if (!real_estateDB.save())
                         {
-                            cout << "[Fail] Real Estate with ID [" << reptr->getId() << "] failed to be delisted from sale!\n";
+                            cout << "❌ [Fail] Real Estate with ID [" << reptr->getId() << "] failed to be delisted from sale!\n";
                             break;
                         }
-                        cout << "[Success] Real Estate with ID [" << reptr->getId() << "] delisted from sale!\n";
+                        cout << "✅ [Success] Real Estate with ID [" << reptr->getId() << "] delisted from sale!\n";
                         break;
                     }
                 }
             }
             else
-                cout << "[Fail] You don't own Real Estate with ID [" << reId << "]!\n";
+                cout << "❌ [Fail] You don't own Real Estate with ID [" << reId << "]!\n";
             break;
         }
         case 4:
@@ -699,7 +693,7 @@ void enterCitizenManageRealEstateMenu(User *&currentUser, Database<User> &usersD
         }
         default:
         {
-            cerr << "\n\tInvalid command!\n";
+            cerr << "\n\t⛔ Invalid command!\n";
             choice = -1;
         }
         }

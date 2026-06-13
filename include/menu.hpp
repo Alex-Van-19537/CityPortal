@@ -17,6 +17,9 @@ using std::cout;
 using std::string;
 
 void login(Database<User> &, User *&);
+int getValidInt();
+char getValidChar();
+bool assuringPrompt();
 bool enterLogInMenu(User *&, Database<User> &, Database<Vehicle> &, Database<RealEstate> &);
 void enterAdminMenu(Database<User>&, Database<Vehicle>&, Database<RealEstate>&);
 void enterAdminManageUsersMenu(Database<User>&, Database<Vehicle>&, Database<RealEstate>&);
