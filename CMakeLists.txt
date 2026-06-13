@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(include)
 
-add_executable(main
+add_executable(CityPortal
 main.cpp
 src/entry.cpp
 src/user.cpp
