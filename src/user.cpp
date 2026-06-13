@@ -18,6 +18,7 @@ void User::setIncome(int i) { income = i; }
 void User::setMoney(int m) { money = m; }
 void User::setRealEstates(vector<int> re) { real_estate = re; }
 void User::setVehicles(vector<int> v) { vehicles = v; }
+void User::setRole(const Role &r) { role = r; }
 
 string roleToStr(Role role)
 {
@@ -123,7 +124,7 @@ bool User::loadFromCSV(ifstream &in)
             age = stoi(ageStr);
         if (!incomeStr.empty())
             income = stoi(incomeStr);
-        if(!moneyStr.empty())
+        if (!moneyStr.empty())
             money = stoi(moneyStr);
         if (!roleStr.empty())
             role = strToRole(roleStr);
@@ -143,8 +144,10 @@ void User::getInfo() const
          << string(70, '-') << '\n';
 }
 
-bool User::showVehicles(const Database<Vehicle> &vdb) const {
-    if (vehicles.empty()){
+bool User::showVehicles(const Database<Vehicle> &vdb) const
+{
+    if (vehicles.empty())
+    {
         cout << "\n\t∅ Does not own vehicle!\n\n";
         return false;
     }
@@ -171,8 +174,10 @@ bool User::showVehicles(const Database<Vehicle> &vdb) const {
     return true;
 }
 
-bool User::showRealEstate(const Database<RealEstate> &redb) const {
-    if (real_estate.empty()){
+bool User::showRealEstate(const Database<RealEstate> &redb) const
+{
+    if (real_estate.empty())
+    {
         cout << "\n\t∅ Does not own real estate!\n\n";
         return false;
     }

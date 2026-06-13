@@ -45,6 +45,7 @@ public:
     void setMoney(int);
     void setRealEstates(vector<int>);
     void setVehicles(vector<int>);
+    void setRole(const Role&);
 
     void writeToCSV(ofstream &) const override;
     bool loadFromCSV(ifstream &) override;
