@@ -1,4 +1,8 @@
 #include "menu.hpp"
+#include "real_estate_service.hpp"
+#include "user_service.hpp"
+#include "vehicle_service.hpp"
+#include <limits>
 
 const string LOGIN_MENU = "1. Log In\n0. Exit\n";
 const string MAIN_CITIZEN_MENU = "1. View My Profile\n2. Manage Vehicles\n3. Manage Real Estate\n0. Log Out\n";
