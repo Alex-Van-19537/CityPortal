@@ -1,34 +1,34 @@
 #ifndef DATABASE_HPP
 #define DATABASE_HPP
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <algorithm>
-using std::cout;
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
 using std::cerr;
+using std::cout;
 using std::ifstream;
 using std::ofstream;
 using std::remove_if;
 using std::string;
 using std::vector;
 
-template<typename T>
+template <typename T>
 class Database
 {
 public:
     Database() = default;
     Database(const string &);
     bool load(const string &);
-    vector<T>& getData() { return data; }
-    const vector<T>& getData() const { return data; }
+    vector<T> &getData() { return data; }
+    const vector<T> &getData() const { return data; }
     bool save() const;
     bool empty() const;
     void list() const;
-    template<typename Predicate>
-    const T* find(Predicate) const;
-    template<typename Predicate>
-    T* find(Predicate);
+    template <typename Predicate>
+    const T *find(Predicate) const;
+    template <typename Predicate>
+    T *find(Predicate);
     bool add(const T &);
     bool remove(int);
     int getNextId() const;
@@ -41,7 +41,10 @@ private:
 };
 
 template <typename T>
-Database<T>::Database(const string &filename) { load(filename); }
+Database<T>::Database(const string &filename)
+{
+    load(filename);
+}
 
 template <typename T>
 bool Database<T>::load(const string &fname)
@@ -68,8 +71,9 @@ bool Database<T>::load(const string &fname)
     return true;
 }
 
-template<typename T>
-void Database<T>::reload() {
+template <typename T>
+void Database<T>::reload()
+{
     T temp;
     string nextIdStr;
     data.clear();
@@ -98,10 +102,7 @@ bool Database<T>::save() const
 }
 
 template <typename T>
-bool Database<T>::empty() const
-{
-    return data.empty();
-}
+bool Database<T>::empty() const { return data.empty(); }
 
 template <typename T>
 void Database<T>::list() const
@@ -114,20 +115,26 @@ void Database<T>::list() const
     }
 }
 
-template<typename T>
-template<typename Predicate>
-const T* Database<T>::find(Predicate pred) const{
-    for(const auto& item:data){
-        if(pred(item)) return &item;
+template <typename T>
+template <typename Predicate>
+const T *Database<T>::find(Predicate pred) const
+{
+    for (const auto &item : data)
+    {
+        if (pred(item))
+            return &item;
     }
     return nullptr;
 }
 
-template<typename T>
-template<typename Predicate>
-T* Database<T>::find(Predicate pred) {
-    for(auto& item:data){
-        if(pred(item)) return &item;
+template <typename T>
+template <typename Predicate>
+T *Database<T>::find(Predicate pred)
+{
+    for (auto &item : data)
+    {
+        if (pred(item))
+            return &item;
     }
     return nullptr;
 }
@@ -146,8 +153,9 @@ template <typename T>
 bool Database<T>::remove(int id)
 {
     auto prevSize = data.size();
-    data.erase(remove_if(data.begin(), data.end(), [id](const T &d)
-                              { return id == d.getId(); }),
+    data.erase(remove_if(data.begin(), data.end(),
+                         [id](const T &d)
+                         { return id == d.getId(); }),
                data.end());
 
     if (prevSize <= data.size())
@@ -158,9 +166,6 @@ bool Database<T>::remove(int id)
 }
 
 template <typename T>
-int Database<T>::getNextId() const
-{
-    return nextId;
-}
+int Database<T>::getNextId() const { return nextId; }
 
 #endif
