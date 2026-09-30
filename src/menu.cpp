@@ -15,11 +15,9 @@ const string RE_CITIZEN_MENU =
     "Estate from sale\n4. Buy Real Estate\n0. Back\n";
 const string MAIN_ADMIN_MENU =
     "1. Manage Users\n2. Manage Vehicles\n3. Manage Real Estate\n0. Log Out\n";
-const string USERS_ADMIN_MENU =
-    "1. List users\n2. Add user\n3. Change user income\n4. Change user "
-    "balance\n5. Delete user\n6. Complete Month\n0. Back\n";
-const string VEHICLES_ADMIN_MENU =
-    "1. List Vehicles\n2. Add Vehicle\n3. Delete vehicle\n0. Back\n";
+const string USERS_ADMIN_MENU = "1. List users\n2. Add user\n3. Change user income\n4. Change user "
+                                "balance\n5. Delete user\n6. Complete Month\n0. Back\n";
+const string VEHICLES_ADMIN_MENU = "1. List Vehicles\n2. Add Vehicle\n3. Delete vehicle\n0. Back\n";
 const string RE_ADMIN_MENU =
     "1. List Real Estate\n2. Add Real Estate\n3. Delete Real Estate\n0. Back\n";
 
@@ -72,9 +70,8 @@ void login(Database<User> &usersDB, User *&currentUser)
     cout << "Password: ";
     cin >> password;
 
-    if (User *tmp = usersDB.find(
-            [&username](const User &u)
-            { return u.getUsername() == username; }))
+    if (User *tmp =
+            usersDB.find([&username](const User &u) { return u.getUsername() == username; }))
     {
         if (tmp->getPassword() == password)
         {
@@ -88,8 +85,7 @@ void login(Database<User> &usersDB, User *&currentUser)
         cerr << "\n\t⛔ Wrong username or password!\n";
 }
 
-bool enterLogInMenu(User *&currentUser, Database<User> &usersDB,
-                    Database<Vehicle> &vehiclesDB,
+bool enterLogInMenu(User *&currentUser, Database<User> &usersDB, Database<Vehicle> &vehiclesDB,
                     Database<RealEstate> &real_estateDB)
 {
     int choice;
@@ -106,14 +102,12 @@ bool enterLogInMenu(User *&currentUser, Database<User> &usersDB,
 
         switch (choice)
         {
-        case 1:
-        {
+        case 1: {
             login(usersDB, currentUser);
             return true;
         }
         case 11:
-            currentUser = usersDB.find([](const auto &u)
-                                       { return u.getId() == 1; });
+            currentUser = usersDB.find([](const auto &u) { return u.getId() == 1; });
             cout << "🥹  Welcome back, " << currentUser->getUsername() << "!\n";
             return true;
         case 0:
@@ -144,18 +138,15 @@ void enterAdminMenu(Database<User> &usersDB, Database<Vehicle> &vehiclesDB,
 
         switch (choice)
         {
-        case 1:
-        {
+        case 1: {
             enterAdminManageUsersMenu(usersDB, vehiclesDB, real_estateDB);
             break;
         }
-        case 2:
-        {
+        case 2: {
             enterAdminManageVehiclesMenu(usersDB, vehiclesDB, real_estateDB);
             break;
         }
-        case 3:
-        {
+        case 3: {
             enterAdminManageRealEstateMenu(usersDB, vehiclesDB, real_estateDB);
             break;
         }
@@ -168,8 +159,7 @@ void enterAdminMenu(Database<User> &usersDB, Database<Vehicle> &vehiclesDB,
     } while (choice != 0);
 }
 
-void enterAdminManageUsersMenu(Database<User> &usersDB,
-                               Database<Vehicle> &vehiclesDB,
+void enterAdminManageUsersMenu(Database<User> &usersDB, Database<Vehicle> &vehiclesDB,
                                Database<RealEstate> &real_estateDB)
 {
     int choice;
@@ -189,8 +179,7 @@ void enterAdminManageUsersMenu(Database<User> &usersDB,
             for (const auto &u : usersDB.getData())
                 printUserCard(u, vehiclesDB, real_estateDB);
             break;
-        case 2:
-        {
+        case 2: {
             string firstname, lastname, username, password;
             int age = -1, cnt = 0;
             cout << "Firstname: ";
@@ -213,22 +202,17 @@ void enterAdminManageUsersMenu(Database<User> &usersDB,
                 break;
             }
 
-            usersDB.add(User(usersDB.getNextId(), firstname, lastname, username,
-                             password, age));
-            cout << "✅ [Success]: User added with ID: " << usersDB.getNextId() - 1
-                 << "!\n";
+            usersDB.add(User(usersDB.getNextId(), firstname, lastname, username, password, age));
+            cout << "✅ [Success]: User added with ID: " << usersDB.getNextId() - 1 << "!\n";
             break;
         }
 
-        case 3:
-        {
+        case 3: {
             int uId;
             printUsersShort(usersDB);
             cout << "User to be modified [ID]: ";
             uId = getValidInt();
-            User *user =
-                usersDB.find([uId](const User &u)
-                             { return u.getId() == uId; });
+            User *user = usersDB.find([uId](const User &u) { return u.getId() == uId; });
             if (!user)
             {
                 cerr << "⛔ There is not user with ID: " << uId << '\n';
@@ -247,15 +231,12 @@ void enterAdminManageUsersMenu(Database<User> &usersDB,
             break;
         }
 
-        case 4:
-        {
+        case 4: {
             int uId;
             printUsersShort(usersDB);
             cout << "User to be modified [ID]: ";
             uId = getValidInt();
-            User *user =
-                usersDB.find([uId](const User &u)
-                             { return u.getId() == uId; });
+            User *user = usersDB.find([uId](const User &u) { return u.getId() == uId; });
             if (!user)
             {
                 cerr << "⛔ There is not user with ID: " << uId << '\n';
@@ -274,8 +255,7 @@ void enterAdminManageUsersMenu(Database<User> &usersDB,
             break;
         }
 
-        case 5:
-        {
+        case 5: {
             int deleteId;
             printUsersShort(usersDB);
             cout << "User to be deleted [ID]: ";
@@ -288,8 +268,7 @@ void enterAdminManageUsersMenu(Database<User> &usersDB,
                 cout << "❌ [Error]: User with ID " << deleteId << " not found.\n";
             break;
         }
-        case 6:
-        {
+        case 6: {
             completeMonth(usersDB);
             break;
         }
@@ -302,8 +281,7 @@ void enterAdminManageUsersMenu(Database<User> &usersDB,
     } while (choice != 0);
 }
 
-void enterAdminManageVehiclesMenu(Database<User> &usersDB,
-                                  Database<Vehicle> &vehiclesDB,
+void enterAdminManageVehiclesMenu(Database<User> &usersDB, Database<Vehicle> &vehiclesDB,
                                   Database<RealEstate> &real_estateDB)
 {
     int choice;
@@ -321,15 +299,14 @@ void enterAdminManageVehiclesMenu(Database<User> &usersDB,
         {
         case 1:
             cout << "\n====================== Vehicles ======================\n\n";
-            cout << left << setw(6) << "[ID]" << left << setw(15) << "[Make]" << left
-                 << setw(15) << "[Model]" << left << setw(10) << "[Fuel]" << left
-                 << setw(7) << "[Price]" << left << setw(9) << "[For Sale]" << '\n'
+            cout << left << setw(6) << "[ID]" << left << setw(15) << "[Make]" << left << setw(15)
+                 << "[Model]" << left << setw(10) << "[Fuel]" << left << setw(7) << "[Price]"
+                 << left << setw(9) << "[For Sale]" << '\n'
                  << string(63, '=') << '\n';
             vehiclesDB.list();
             break;
 
-        case 2:
-        {
+        case 2: {
             string make, model, fuelStr;
             int price;
             cout << "Make: ";
@@ -341,15 +318,12 @@ void enterAdminManageVehiclesMenu(Database<User> &usersDB,
             cout << "Price: ";
             price = getValidInt();
 
-            vehiclesDB.add(Vehicle(vehiclesDB.getNextId(), make, model,
-                                   strToFuel(fuelStr), price));
-            cout << "✅ [Success]: Vehicle added with ID: "
-                 << vehiclesDB.getNextId() - 1 << "!\n";
+            vehiclesDB.add(Vehicle(vehiclesDB.getNextId(), make, model, strToFuel(fuelStr), price));
+            cout << "✅ [Success]: Vehicle added with ID: " << vehiclesDB.getNextId() - 1 << "!\n";
             break;
         }
 
-        case 3:
-        {
+        case 3: {
             int deleteId;
             getAllVehicles(vehiclesDB);
             cout << "Vehicle to be deleted [ID]: ";
@@ -357,8 +331,7 @@ void enterAdminManageVehiclesMenu(Database<User> &usersDB,
             if (!assuringPrompt())
                 break;
             if (vehiclesDB.remove(deleteId))
-                cout << "✅ [Success]: Vehicle with ID " << deleteId
-                     << " was deleted!\n";
+                cout << "✅ [Success]: Vehicle with ID " << deleteId << " was deleted!\n";
             else
                 cout << "❌ [Error]: Vehicle with ID " << deleteId << " not found.\n";
             break;
@@ -373,8 +346,7 @@ void enterAdminManageVehiclesMenu(Database<User> &usersDB,
     } while (choice != 0);
 }
 
-void enterAdminManageRealEstateMenu(Database<User> &usersDB,
-                                    Database<Vehicle> &vehiclesDB,
+void enterAdminManageRealEstateMenu(Database<User> &usersDB, Database<Vehicle> &vehiclesDB,
                                     Database<RealEstate> &real_estateDB)
 {
     int choice;
@@ -393,15 +365,14 @@ void enterAdminManageRealEstateMenu(Database<User> &usersDB,
         {
         case 1:
             cout << "\n====================== Real Estate ======================\n\n";
-            cout << left << setw(6) << "[ID]" << left << setw(15) << "[Type]" << left
-                 << setw(50) << "[Address]" << left << setw(10) << "[Size]" << left
-                 << setw(7) << "[Price]" << left << setw(9) << "[For Sale]" << '\n'
+            cout << left << setw(6) << "[ID]" << left << setw(15) << "[Type]" << left << setw(50)
+                 << "[Address]" << left << setw(10) << "[Size]" << left << setw(7) << "[Price]"
+                 << left << setw(9) << "[For Sale]" << '\n'
                  << string(98, '=') << '\n';
             real_estateDB.list();
             break;
 
-        case 2:
-        {
+        case 2: {
             string type, address;
             int price, size;
             cout << "Type [Apartment, House, Studio, Maisonette]: ";
@@ -413,15 +384,14 @@ void enterAdminManageRealEstateMenu(Database<User> &usersDB,
             cout << "Price: ";
             price = getValidInt();
 
-            real_estateDB.add(RealEstate(real_estateDB.getNextId(), strToEType(type),
-                                         address, size, price));
-            cout << "✅ [Success]: Real Estate added with ID: "
-                 << real_estateDB.getNextId() - 1 << "!\n";
+            real_estateDB.add(
+                RealEstate(real_estateDB.getNextId(), strToEType(type), address, size, price));
+            cout << "✅ [Success]: Real Estate added with ID: " << real_estateDB.getNextId() - 1
+                 << "!\n";
             break;
         }
 
-        case 3:
-        {
+        case 3: {
             int deleteId;
             getAllRE(real_estateDB);
             cout << "Real Estate to be deleted [ID]: ";
@@ -429,11 +399,9 @@ void enterAdminManageRealEstateMenu(Database<User> &usersDB,
             if (!assuringPrompt())
                 break;
             if (real_estateDB.remove(deleteId))
-                cout << "✅ [Success]: Real Estate with ID " << deleteId
-                     << " was deleted!\n";
+                cout << "✅ [Success]: Real Estate with ID " << deleteId << " was deleted!\n";
             else
-                cout << "❌ [Error]: Real Estate with ID " << deleteId
-                     << " not found.\n";
+                cout << "❌ [Error]: Real Estate with ID " << deleteId << " not found.\n";
             break;
         }
         case 0:
@@ -446,8 +414,7 @@ void enterAdminManageRealEstateMenu(Database<User> &usersDB,
     } while (choice != 0);
 }
 
-void enterCitizenMenu(User *&currentUser, Database<User> &usersDB,
-                      Database<Vehicle> &vehiclesDB,
+void enterCitizenMenu(User *&currentUser, Database<User> &usersDB, Database<Vehicle> &vehiclesDB,
                       Database<RealEstate> &real_estateDB)
 {
     int choice;
@@ -463,29 +430,22 @@ void enterCitizenMenu(User *&currentUser, Database<User> &usersDB,
 
         switch (choice)
         {
-        case 1:
-        {
+        case 1: {
             printUserCard(*currentUser, vehiclesDB, real_estateDB);
             break;
         }
-        case 2:
-        {
-            enterCitizenManageVehiclesMenu(currentUser, usersDB, vehiclesDB,
-                                           real_estateDB);
+        case 2: {
+            enterCitizenManageVehiclesMenu(currentUser, usersDB, vehiclesDB, real_estateDB);
             break;
         }
-        case 3:
-        {
-            enterCitizenManageRealEstateMenu(currentUser, usersDB, vehiclesDB,
-                                             real_estateDB);
+        case 3: {
+            enterCitizenManageRealEstateMenu(currentUser, usersDB, vehiclesDB, real_estateDB);
             break;
         }
-        case 0:
-        {
+        case 0: {
             break;
         }
-        default:
-        {
+        default: {
             cerr << "\n\t⛔ Invalid command!\n";
             choice = -1;
         }
@@ -511,21 +471,18 @@ void enterCitizenManageVehiclesMenu(User *&currentUser, Database<User> &usersDB,
 
         switch (choice)
         {
-        case 1:
-        {
+        case 1: {
             getVehiclesForSale(vehiclesDB);
             break;
         }
-        case 2:
-        {
+        case 2: {
             int vehicleId;
             if (!currentUser->showVehicles(vehiclesDB))
                 break;
             cout << "Vehicle to be listed for sale [ID]: ";
             vehicleId = getValidInt();
-            Vehicle *vptr = vehiclesDB.find(
-                [vehicleId](const Vehicle &v)
-                { return vehicleId == v.getId(); });
+            Vehicle *vptr =
+                vehiclesDB.find([vehicleId](const Vehicle &v) { return vehicleId == v.getId(); });
             if (vptr)
             {
                 for (auto &v : currentUser->getVehicles())
@@ -563,20 +520,17 @@ void enterCitizenManageVehiclesMenu(User *&currentUser, Database<User> &usersDB,
                 }
             }
             else
-                cout << "❌ [Fail] You don't own vehicle with ID [" << vehicleId
-                     << "]!\n";
+                cout << "❌ [Fail] You don't own vehicle with ID [" << vehicleId << "]!\n";
             break;
         }
-        case 3:
-        {
+        case 3: {
             int vehicleId;
             if (!currentUser->showVehicles(vehiclesDB))
                 break;
             cout << "Vehicle to be delisted from sale [ID]: ";
             vehicleId = getValidInt();
-            Vehicle *vptr = vehiclesDB.find(
-                [vehicleId](const Vehicle &v)
-                { return vehicleId == v.getId(); });
+            Vehicle *vptr =
+                vehiclesDB.find([vehicleId](const Vehicle &v) { return vehicleId == v.getId(); });
             if (vptr)
             {
                 for (auto &v : currentUser->getVehicles())
@@ -605,30 +559,25 @@ void enterCitizenManageVehiclesMenu(User *&currentUser, Database<User> &usersDB,
                 }
             }
             else
-                cout << "❌ [Fail] You don't own Vehicle with ID [" << vehicleId
-                     << "]!\n";
+                cout << "❌ [Fail] You don't own Vehicle with ID [" << vehicleId << "]!\n";
             break;
         }
-        case 4:
-        {
+        case 4: {
             if (getVehiclesForSale(vehiclesDB))
                 buyVehicle(currentUser, usersDB, vehiclesDB);
             break;
         }
-        case 0:
-        {
+        case 0: {
             break;
         }
-        default:
-        {
+        default: {
             cerr << "\n\t⛔ Invalid command!\n";
             choice = -1;
         }
         }
     } while (choice != 0);
 }
-void enterCitizenManageRealEstateMenu(User *&currentUser,
-                                      Database<User> &usersDB,
+void enterCitizenManageRealEstateMenu(User *&currentUser, Database<User> &usersDB,
                                       Database<Vehicle> &vehiclesDB,
                                       Database<RealEstate> &real_estateDB)
 {
@@ -646,21 +595,18 @@ void enterCitizenManageRealEstateMenu(User *&currentUser,
 
         switch (choice)
         {
-        case 1:
-        {
+        case 1: {
             getRealEstateForSale(real_estateDB);
             break;
         }
-        case 2:
-        {
+        case 2: {
             int reId;
             if (!currentUser->showRealEstate(real_estateDB))
                 break;
             cout << "Real Estate to be listed for sale [ID]: ";
             reId = getValidInt();
-            RealEstate *reptr = real_estateDB.find(
-                [reId](const RealEstate &re)
-                { return reId == re.getId(); });
+            RealEstate *reptr =
+                real_estateDB.find([reId](const RealEstate &re) { return reId == re.getId(); });
             if (reptr)
             {
                 for (auto &re : currentUser->getRealEstates())
@@ -698,20 +644,17 @@ void enterCitizenManageRealEstateMenu(User *&currentUser,
                 }
             }
             else
-                cout << "❌[Fail] You don't own Real Estate with ID [" << reId
-                     << "]!\n";
+                cout << "❌[Fail] You don't own Real Estate with ID [" << reId << "]!\n";
             break;
         }
-        case 3:
-        {
+        case 3: {
             int reId;
             if (!currentUser->showRealEstate(real_estateDB))
                 break;
             cout << "Real Estate to be delisted from sale [ID]: ";
             reId = getValidInt();
-            RealEstate *reptr = real_estateDB.find(
-                [reId](const RealEstate &re)
-                { return reId == re.getId(); });
+            RealEstate *reptr =
+                real_estateDB.find([reId](const RealEstate &re) { return reId == re.getId(); });
             if (reptr)
             {
                 for (auto &re : currentUser->getRealEstates())
@@ -740,22 +683,18 @@ void enterCitizenManageRealEstateMenu(User *&currentUser,
                 }
             }
             else
-                cout << "❌ [Fail] You don't own Real Estate with ID [" << reId
-                     << "]!\n";
+                cout << "❌ [Fail] You don't own Real Estate with ID [" << reId << "]!\n";
             break;
         }
-        case 4:
-        {
+        case 4: {
             if (getRealEstateForSale(real_estateDB))
                 buyRealEstate(currentUser, usersDB, real_estateDB);
             break;
         }
-        case 0:
-        {
+        case 0: {
             break;
         }
-        default:
-        {
+        default: {
             cerr << "\n\t⛔ Invalid command!\n";
             choice = -1;
         }

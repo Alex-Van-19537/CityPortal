@@ -1,9 +1,9 @@
 #ifndef USER_HPP
 #define USER_HPP
-#include "entry.hpp"
 #include "database.hpp"
-#include "vehicle.hpp"
+#include "entry.hpp"
 #include "real_estate.hpp"
+#include "vehicle.hpp"
 
 enum class Role
 {
@@ -17,9 +17,10 @@ Role strToRole(const string &);
 
 class User : public Entry
 {
-public:
+  public:
     User() = default;
-    User(int, const string &, const string &, const string &, const string &, int, int = 0, int = 0, const vector<int> & = {}, const vector<int> & = {}, const Role & = Role::CITIZEN);
+    User(int, const string &, const string &, const string &, const string &, int, int = 0, int = 0,
+         const vector<int> & = {}, const vector<int> & = {}, const Role & = Role::CITIZEN);
 
     // getter
     string getFirstname() const;
@@ -35,7 +36,6 @@ public:
     void getInfo() const;
     bool showVehicles(const Database<Vehicle> &) const;
     bool showRealEstate(const Database<RealEstate> &) const;
-    
 
     // setter
     void setFirstname(const string &);
@@ -45,7 +45,7 @@ public:
     void setMoney(int);
     void setRealEstates(vector<int>);
     void setVehicles(vector<int>);
-    void setRole(const Role&);
+    void setRole(const Role &);
 
     void writeToCSV(ofstream &) const override;
     bool loadFromCSV(ifstream &) override;
@@ -53,7 +53,7 @@ public:
     ostream &ins(ostream &) const override;
     istream &ext(istream &) override;
 
-private:
+  private:
     string firstname = "";
     string lastname = "";
     string username = "";

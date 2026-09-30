@@ -1,8 +1,12 @@
 #include "app.hpp"
 
-App::App() : isRunning(false), currentUser(nullptr) {}
+App::App() : isRunning(false), currentUser(nullptr)
+{
+}
 
-App::~App() {}
+App::~App()
+{
+}
 
 fs::path App::getExecutableDir()
 {
@@ -43,7 +47,8 @@ bool App::init()
     string usersFile = (data_dir / "users.csv").string();
     string vehiclesFile = (data_dir / "vehicles.csv").string();
     string real_estateFile = (data_dir / "real_estate.csv").string();
-    if (!usersDB.load(usersFile) || !vehiclesDB.load(vehiclesFile) || !real_estateDB.load(real_estateFile))
+    if (!usersDB.load(usersFile) || !vehiclesDB.load(vehiclesFile) ||
+        !real_estateDB.load(real_estateFile))
         return false;
     if (usersDB.empty())
     {

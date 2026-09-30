@@ -2,9 +2,9 @@
 
 void printUsersShort(const Database<User> &usersDB)
 {
-    cout << left << setw(6) << "[ID]" << left << setw(15) << "[Firstname]" << left
-         << setw(15) << "[Lastname]" << left << setw(10) << "[Income]" << left
-         << setw(10) << "[Money]" << left << setw(10) << "[Role]" << '\n'
+    cout << left << setw(6) << "[ID]" << left << setw(15) << "[Firstname]" << left << setw(15)
+         << "[Lastname]" << left << setw(10) << "[Income]" << left << setw(10) << "[Money]" << left
+         << setw(10) << "[Role]" << '\n'
          << string(70, '-') << "\n";
     for (auto &u : usersDB.getData())
     {
@@ -12,22 +12,19 @@ void printUsersShort(const Database<User> &usersDB)
     }
 }
 
-void printUserCard(const User &user, const Database<Vehicle> &vdb,
-                   const Database<RealEstate> &redb)
+void printUserCard(const User &user, const Database<Vehicle> &vdb, const Database<RealEstate> &redb)
 {
-    cout << left << setw(6) << "[ID]" << left << setw(15) << "[Firstname]" << left
-         << setw(15) << "[Lastname]" << left << setw(17) << "[Username]" << left
-         << setw(20) << "[Password]" << left << setw(7) << "[Age]" << left
-         << setw(10) << "[Income]" << left << setw(10) << "[Money]" << left
-         << setw(10) << "[Role]" << '\n'
+    cout << left << setw(6) << "[ID]" << left << setw(15) << "[Firstname]" << left << setw(15)
+         << "[Lastname]" << left << setw(17) << "[Username]" << left << setw(20) << "[Password]"
+         << left << setw(7) << "[Age]" << left << setw(10) << "[Income]" << left << setw(10)
+         << "[Money]" << left << setw(10) << "[Role]" << '\n'
          << string(110, '=') << "\n";
 
-    cout << left << setw(6) << user.getId() << left << setw(15)
-         << user.getFirstname() << left << setw(15) << user.getLastname() << left
-         << setw(17) << user.getUsername() << left << setw(20)
-         << user.getPassword() << left << setw(7) << user.getAge() << left
-         << setw(10) << user.getIncome() << left << setw(10) << user.getMoney()
-         << left << setw(10) << roleToStr(user.getRole()) << '\n'
+    cout << left << setw(6) << user.getId() << left << setw(15) << user.getFirstname() << left
+         << setw(15) << user.getLastname() << left << setw(17) << user.getUsername() << left
+         << setw(20) << user.getPassword() << left << setw(7) << user.getAge() << left << setw(10)
+         << user.getIncome() << left << setw(10) << user.getMoney() << left << setw(10)
+         << roleToStr(user.getRole()) << '\n'
          << string(110, '.') << "\n\n"
          << "🚘 Vehicles:\n";
 
@@ -35,15 +32,13 @@ void printUserCard(const User &user, const Database<Vehicle> &vdb,
         cout << "\n\t∅ Does not own vehicle!\n\n";
     else
     {
-        cout << left << setw(6) << "[ID]" << left << setw(15) << "[Make]" << left
-             << setw(15) << "[Model]" << left << setw(10) << "[Fuel]" << left
-             << setw(7) << "[Price]" << left << setw(9) << "[For Sale]" << '\n'
+        cout << left << setw(6) << "[ID]" << left << setw(15) << "[Make]" << left << setw(15)
+             << "[Model]" << left << setw(10) << "[Fuel]" << left << setw(7) << "[Price]" << left
+             << setw(9) << "[For Sale]" << '\n'
              << string(63, '=') << '\n';
         for (const auto &v : user.getVehicles())
         {
-            auto vptr =
-                vdb.find([&v](const auto &vobj)
-                         { return vobj.getId() == v; });
+            auto vptr = vdb.find([&v](const auto &vobj) { return vobj.getId() == v; });
             if (vptr)
                 cout << *vptr;
             else
@@ -57,15 +52,13 @@ void printUserCard(const User &user, const Database<Vehicle> &vdb,
         cout << "\n\t∅ Does not own real estate!\n\n";
     else
     {
-        cout << left << setw(6) << "[ID]" << left << setw(15) << "[Type]" << left
-             << setw(50) << "[Address]" << left << setw(10) << "[Size]" << left
-             << setw(7) << "[Price]" << left << setw(9) << "[For Sale]" << '\n'
+        cout << left << setw(6) << "[ID]" << left << setw(15) << "[Type]" << left << setw(50)
+             << "[Address]" << left << setw(10) << "[Size]" << left << setw(7) << "[Price]" << left
+             << setw(9) << "[For Sale]" << '\n'
              << string(98, '=') << '\n';
         for (const auto &re : user.getRealEstates())
         {
-            auto reptr =
-                redb.find([&re](const auto &reobj)
-                          { return reobj.getId() == re; });
+            auto reptr = redb.find([&re](const auto &reobj) { return reobj.getId() == re; });
             if (reptr)
                 cout << *reptr;
             else
@@ -88,25 +81,21 @@ void completeMonth(Database<User> &udb)
         cout << "\n\t[Success] Completing month!\n";
 }
 
-void buyRealEstate(User *currentUser, Database<User> &usersDB,
-                   Database<RealEstate> &real_estateDB)
+void buyRealEstate(User *currentUser, Database<User> &usersDB, Database<RealEstate> &real_estateDB)
 {
     int reId;
     cout << "Real Estate to buy[ID]: ";
     cin >> reId;
-    RealEstate *reptr = real_estateDB.find(
-        [reId](const RealEstate &re)
-        { return reId == re.getId(); });
+    RealEstate *reptr =
+        real_estateDB.find([reId](const RealEstate &re) { return reId == re.getId(); });
     if (!reptr)
     {
-        cout << "[Fail] There is not Real Estate with ID [" << reId
-             << "] for sale!\n";
+        cout << "[Fail] There is not Real Estate with ID [" << reId << "] for sale!\n";
         return;
     }
     else if (!reptr->getForSale())
     {
-        cout << "[Fail] There is not Real Estate with ID [" << reId
-             << "] for sale!\n";
+        cout << "[Fail] There is not Real Estate with ID [" << reId << "] for sale!\n";
         return;
     }
     else if (reptr->getPrice() > currentUser->getMoney())
@@ -116,13 +105,14 @@ void buyRealEstate(User *currentUser, Database<User> &usersDB,
     }
     else
     {
-        User *uptr = usersDB.find([reId](const User &u)
-                                  {
-      for (const auto &re : u.getRealEstates()) {
-        if (re == reId)
-          return true;
-      }
-      return false; });
+        User *uptr = usersDB.find([reId](const User &u) {
+            for (const auto &re : u.getRealEstates())
+            {
+                if (re == reId)
+                    return true;
+            }
+            return false;
+        });
         if (uptr)
         {
             if (uptr->getId() == currentUser->getId())
@@ -132,11 +122,9 @@ void buyRealEstate(User *currentUser, Database<User> &usersDB,
             }
             uptr->setMoney(uptr->getMoney() + reptr->getPrice());
             vector<int> newRealEstateS = uptr->getRealEstates();
-            newRealEstateS.erase(
-                remove_if(newRealEstateS.begin(), newRealEstateS.end(),
-                          [reId](const int re)
-                          { return re == reId; }),
-                newRealEstateS.end());
+            newRealEstateS.erase(remove_if(newRealEstateS.begin(), newRealEstateS.end(),
+                                           [reId](const int re) { return re == reId; }),
+                                 newRealEstateS.end());
             uptr->setRealEstates(newRealEstateS);
         }
         currentUser->setMoney(currentUser->getMoney() - reptr->getPrice());
@@ -147,20 +135,18 @@ void buyRealEstate(User *currentUser, Database<User> &usersDB,
         if (!usersDB.save() || !real_estateDB.save())
             cout << "[Fail] Transaction failed and Real Estate with ID [" << reId
                  << "] remains for sale!\n";
-        cout << "[Success] Transaction is successful and Real Estate with ID ["
-             << reId << "] is yours!\n";
+        cout << "[Success] Transaction is successful and Real Estate with ID [" << reId
+             << "] is yours!\n";
     }
 }
 
-void buyVehicle(User *currentUser, Database<User> &usersDB,
-                Database<Vehicle> &vehiclesDB)
+void buyVehicle(User *currentUser, Database<User> &usersDB, Database<Vehicle> &vehiclesDB)
 {
     int vehicleId;
     cout << "Vehicle to buy[ID]: ";
     cin >> vehicleId;
-    Vehicle *vptr = vehiclesDB.find(
-        [vehicleId](const Vehicle &v)
-        { return vehicleId == v.getId(); });
+    Vehicle *vptr =
+        vehiclesDB.find([vehicleId](const Vehicle &v) { return vehicleId == v.getId(); });
     if (!vptr)
     {
         cout << "There is not Vehicle with ID [" << vehicleId << "] for sale!\n";
@@ -178,13 +164,14 @@ void buyVehicle(User *currentUser, Database<User> &usersDB,
     }
     else
     {
-        User *uptr = usersDB.find([vehicleId](const User &u)
-                                  {
-      for (const auto &v : u.getVehicles()) {
-        if (v == vehicleId)
-          return true;
-      }
-      return false; });
+        User *uptr = usersDB.find([vehicleId](const User &u) {
+            for (const auto &v : u.getVehicles())
+            {
+                if (v == vehicleId)
+                    return true;
+            }
+            return false;
+        });
         if (uptr)
         {
             if (uptr->getId() == currentUser->getId())
@@ -194,11 +181,9 @@ void buyVehicle(User *currentUser, Database<User> &usersDB,
             }
             uptr->setMoney(uptr->getMoney() + vptr->getPrice());
             vector<int> newVehiclesS = uptr->getVehicles();
-            newVehiclesS.erase(
-                remove_if(newVehiclesS.begin(), newVehiclesS.end(),
-                          [vehicleId](const int vId)
-                          { return vId == vehicleId; }),
-                newVehiclesS.end());
+            newVehiclesS.erase(remove_if(newVehiclesS.begin(), newVehiclesS.end(),
+                                         [vehicleId](const int vId) { return vId == vehicleId; }),
+                               newVehiclesS.end());
             uptr->setVehicles(newVehiclesS);
         }
         currentUser->setMoney(currentUser->getMoney() - vptr->getPrice());
@@ -213,7 +198,7 @@ void buyVehicle(User *currentUser, Database<User> &usersDB,
             return;
         }
 
-        cout << "[Success] Transaction is successful and Vehicle with ID ["
-             << vehicleId << "] is yours!\n";
+        cout << "[Success] Transaction is successful and Vehicle with ID [" << vehicleId
+             << "] is yours!\n";
     }
 }
